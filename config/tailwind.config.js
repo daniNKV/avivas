@@ -10,14 +10,16 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ['Poppins', ...defaultTheme.fontFamily.sans],
       },
     },
   },
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
-    require('@tailwindcss/container-queries'),
     require('daisyui'),
-  ]
+  ],
+  daisyui: {
+    themes: ["dark", "lofi", "black", "nord"]
+  }
 }
