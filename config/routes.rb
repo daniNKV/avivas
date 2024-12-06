@@ -2,13 +2,14 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root "landing#index"
 
+  namespace :admin do
+    root to: "dashboard#index"
+    resources :users
+  end
+
   # scope module: "storefront" do
   # end
-  #
-  # namespace :admin do
-  #   root to "admin#index"
-  # end
-  #
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
