@@ -1,4 +1,4 @@
-      <div class="navbar bg-base-100 p-4">
+      <div class="navbar px-4">
         <div class="navbar-start">
           <div class="dropdown">
             <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -29,7 +29,10 @@
               <li><a>Item 3</a></li>
             </ul>
           </div>
-          <%= image_tag "logos/horizontal.svg", size: 125 %>
+          <a class="p-2" href="#">
+            <%= image_tag 'logos/horizontal.svg', id: 'site-logo-white', alt: 'Site Logo', size: 125 %>
+            <%= image_tag 'logos/horizontal-black.svg', id: 'site-logo-black', alt: 'Site Logo', size: 125, style: "display:none"%>
+          </a>
         </div>
         <div class="navbar-center hidden lg:flex">
           <ul class="menu menu-horizontal px-1">
@@ -47,6 +50,9 @@
           </ul>
         </div>
         <div class="navbar-end">
-          <a class="btn btn-ghost"><i class="fa-solid fa-circle-half-stroke text-xl"></i></a>
+          <button id="theme-toggle" data-toggle-theme="black,lofi" data-act-class="ACTIVECLASS">
+            <i id="light-icon" class="fa-solid fa-sun text-2xl" style="display: none;"></i>
+            <i id="dark-icon" class="fa-solid fa-moon text-2xl"></i>
+          </button>
         </div>
       </div>
