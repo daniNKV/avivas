@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title><%= content_for(:title) || "Avivas" %></title>
+    <title><%= content_for(:title) %>Avivas</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -24,12 +24,12 @@
     <header class="sticky top-0 left-0">
       <%= yield :header %>
     </header>
-    <% if content_for?(:admin_layout) %>
+    <% if content_for?(:main_content) %>
       <main>
-        <%= yield :admin_layout %>
+        <%= yield :main_content %>
       </main>
     <% else %>
-      <main class="container flex mx-auto mt-0 px-5 ">
+      <main class="container mx-auto mt-0 px-5 ">
         <%= yield %>
       </main>
     <% end %>

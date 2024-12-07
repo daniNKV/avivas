@@ -23,5 +23,12 @@ module Avivas
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Configure authentication view's layout
+    config.to_prepare do
+      Clearance::PasswordsController.layout "auth"
+      Clearance::SessionsController.layout "auth"
+      Clearance::UsersController.layout "auth"
+    end
   end
 end

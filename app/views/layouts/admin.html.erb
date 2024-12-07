@@ -1,4 +1,4 @@
-<% content_for :title do %>Avivas Admin | <%= content_for?(:page_title) ? yield(:page_title) : "Dashboard" %><% end %>
+<% content_for :title do %><%= content_for?(:page_title) ? yield(:page_title) : "" %> | Avivas Admin <% end %>
 
 <% content_for :head do %>
   <%= yield :admin_head %>
@@ -8,7 +8,7 @@
   <%= render "admin/shared/navbar" %>
 <% end %>
 
-<% content_for :admin_layout do %>
+<% content_for :main_content do %>
 <div class="drawer min-h-full lg:drawer-open">
   <input id="sidebar-drawer" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content flex flex-col items-center justify-center">

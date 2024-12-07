@@ -1,0 +1,33 @@
+<%= form_for :session, url: session_path, class:"flex flex-col gap-4" do |form| %>
+  <div class="text-field">
+    <%= form.email_field :email,
+                         placeholder: "Email",
+                         class: "input input-bordered w-full max-w-xs"
+    %>
+  </div>
+  <div class="relative" data-controller="password-visibility">
+    <%= form.password_field :password,
+                            spellcheck: false,
+                            placeholder: "Password",
+                            class: "input input-bordered w-full max-w-xs z-10",
+                            data: { password_visibility_target: "input" }
+    %>
+    <button type="button" data-action="password-visibility#toggle" class="z-20 absolute top-0 right-0 translate-y-1/2 -translate-x-1/2">
+      <span data-password-visibility-target="icon"><i class="fa-solid fa-eye"></i></span>
+      <span data-password-visibility-target="icon" class="hidden"><i class="fa-solid fa-eye-slash"></i></span>
+    </button>
+  </div>
+
+  <div class="submit-field">
+    <%= form.submit class: "btn btn-outlined w-full" %>
+  </div>
+
+  <div class="other-links">
+    <% if Clearance.configuration.allow_sign_up? %>
+      <%= link_to t(".sign_up"), sign_up_path %>
+    <% end %>
+    <% if Clearance.configuration.allow_password_reset? %>
+      <%= link_to t(".forgot_password"), new_password_path %>
+    <% end %>
+  </div>
+<% end %>

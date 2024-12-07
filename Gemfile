@@ -65,3 +65,5 @@ group :test do
 end
 
 gem "bcrypt", "~> 3.1"
+
+gem "clearance", "~> 2.9"
