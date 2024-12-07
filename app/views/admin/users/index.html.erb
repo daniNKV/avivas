@@ -1,21 +1,68 @@
-<div class="w-full">
+<section class="w-full">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
   <% content_for :title, "Users" %>
 
-  <div class="flex justify-between items-center">
+  <header class="flex justify-between">
     <h1 class="font-bold text-4xl">Users</h1>
-    <%= link_to "New user", new_admin_user_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div>
-
-  <div id="users" class="min-w-full">
-    <% @users.each do |user| %>
-      <%= render user %>
-      <p>
-        <%= link_to "Show this user", [:admin, user], class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
+    <%= link_to new_admin_user_path, class: "btn btn-outline rounded-lg py-3 px-5" do %>
+      <i class="fas fa-plus"></i> Add User
     <% end %>
-  </div>
-</div>
+    </header>
+
+  <article id="users-stats" class="flex justify-between items-center max-w-screen-2xl ">
+    <div class="stats stats-vertical sm:stats-horizontal mx-auto shadow w-full">
+      <div class="stat">
+        <div class="stat-title">Downloads</div>
+        <div class="stat-value">31K</div>
+        <div class="stat-desc">Jan 1st - Feb 1st</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-title">New Users</div>
+        <div class="stat-value">4,200</div>
+        <div class="stat-desc">↗︎ 400 (22%)</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-title">New Registers</div>
+        <div class="stat-value">1,200</div>
+        <div class="stat-desc">↘︎ 90 (14%)</div>
+      </div>
+    </div>
+  </article>
+
+  <article id="users" class="max-w-screen-2xl ">
+    <div class="overflow-x-auto">
+      <table class="table">
+        <!-- head -->
+        <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Joined at</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @users.each do |user| %>
+
+          <%= render partial: "admin/users/user_row", locals: { user: user } %>
+
+        <% end %>
+        </tbody>
+        <!-- foot -->
+        <tfoot>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Joined at</th>
+          <th></th>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+  </article>
+</section>

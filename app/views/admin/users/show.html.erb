@@ -1,15 +1,26 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
+<% content_for :title, "Showing User" %>
+
+<section class="flex flex-col gap-4 mx-auto">
+  <header class="flex justify-between">
+    <h1 class="font-bold text-4xl">Showing: <%= @user.username %></h1>
+    <%= link_to admin_users_path, class: "btn btn-ghost" do %>
+      <i class="fas fa-arrow-left"></i> Back to users
+    <% end %>
+  </header>
+
+  <article id="actions" class="flex justify-center">
+    <div class="join">
+      <%= button_to "Destroy", [:admin, @user], method: :delete, class: "btn btn-outline join-item btn-lg btn-wide" %>
+      <button class="btn btn-outline btn-lg btn-wide">Block</button>
+      <%= link_to "Update", edit_admin_user_path(@user), class: "btn btn-outline join-item btn-lg btn-wide" %>
+    </div>
+  </article>
+  <section id="user-information" class="">
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
 
     <%= render @user %>
 
-    <%= link_to "Edit this user", edit_admin_user_path(@user), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Back to users", admin_users_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this user", [:admin, @user], method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-  </div>
-</div>
+  </section>
+</section>
