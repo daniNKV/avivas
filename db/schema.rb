@@ -10,18 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_06_192058) do
-  create_table "admin_users", force: :cascade do |t|
-    t.string "username"
-    t.string "email"
-    t.string "password_digest"
-    t.datetime "joined_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_admin_users_on_email", unique: true
-    t.index ["username"], name: "index_admin_users_on_username", unique: true
-  end
-
+ActiveRecord::Schema[8.0].define(version: 2024_12_07_051101) do
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "email"
