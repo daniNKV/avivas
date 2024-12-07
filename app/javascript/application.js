@@ -2,7 +2,3 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "theme"
-import { themeChange } from 'theme-change'
-
-themeChange(false)
-

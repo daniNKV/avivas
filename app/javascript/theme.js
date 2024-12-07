@@ -1,8 +1,9 @@
+import { themeChange } from 'theme-change'
+
 function updateLogoBasedOnTheme(theme) {
     const logoBlack = document.getElementById('site-logo-black')
     const logoWhite = document.getElementById('site-logo-white')
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'black'
-    if (currentTheme === 'black') {
+    if (theme === 'black') {
         logoBlack.style.display = 'none';
         logoWhite.style.display = 'block';
     } else {
@@ -14,8 +15,7 @@ function updateLogoBasedOnTheme(theme) {
 function updateIconBasedOnTheme(theme) {
     const iconDark = document.getElementById('dark-icon')
     const iconLight = document.getElementById('light-icon')
-    const currentTheme = document.documentElement.getAttribute('data-theme') || theme
-    if (currentTheme === 'black') {
+    if (theme === 'black') {
         iconDark.style.display = 'none';
         iconLight.style.display = 'block';
     } else {
@@ -24,13 +24,16 @@ function updateIconBasedOnTheme(theme) {
     }
 }
 
-function updateNavbar(theme) {
+function updateNavbar() {
+    const theme = localStorage.getItem('theme') === 'black' ? 'black' : 'lofi';
     updateLogoBasedOnTheme(theme);
     updateIconBasedOnTheme(theme);
 }
-document.addEventListener('DOMContentLoaded', () => {
-    const theme = localStorage.getItem('theme') === 'black' ? 'black' : 'lofi';
-    updateNavbar(theme);
+document.addEventListener('turbo:load', () => {
+    const toggleButton = document.getElementById("theme-toggle")
+    themeChange(false)
+    updateNavbar();
+
+    toggleButton.addEventListener('click', (e) => updateNavbar())
 })
 
-document.addEventListener('click', (e) => updateNavbar(e))

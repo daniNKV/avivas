@@ -16,30 +16,25 @@
   </div>
   <div class="drawer-side fixed left-0 top-0 h-full">
     <label for="sidebar-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-    <ul class="menu text-base-content sticky left-0 top-0 rounded-box w-80">
-      <li><a>
-        <i class="fa-solid fa-house"></i>
-        Item 1
-      </a></li>
+    <ul class="menu text-base-content sticky left-0 top-0 rounded-box w-60">
+      <li class="menu-title">Avivas Administration</li>
+
       <li>
-        <details open>
-          <summary>Parent</summary>
-          <ul>
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-            <li>
-              <details open>
-                <summary>Parent</summary>
-                <ul>
-                  <li><a>Submenu 1</a></li>
-                  <li><a>Submenu 2</a></li>
-                </ul>
-              </details>
-            </li>
-          </ul>
-        </details>
+        <%= link_to "Dashboard", admin_root_url%>
       </li>
-      <li><a>Item 3</a></li>
+      <li>
+          <%= link_to "Users", admin_users_path %>
+      </li>
+      <li>
+        <a>
+          Products
+        </a>
+      </li>
+      <li>
+        <a>
+          Invoices
+        </a>
+      </li>
     </ul>
   </div>
 </div>
