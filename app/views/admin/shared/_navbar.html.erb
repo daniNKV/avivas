@@ -1,0 +1,38 @@
+<div class="navbar bg-base-100">
+  <div class="flex-1">
+    <label for="sidebar-drawer" class="btn btn-ghost btn-circle drawer-button lg:hidden">
+      <i class="fa-solid fa-bars text-2xl"></i>
+    </label>
+    <a class="p-2" href="#">
+      <%= image_tag 'logos/horizontal.svg', id: 'site-logo-white', alt: 'Site Logo', size: 125 %>
+      <%= image_tag 'logos/horizontal-black.svg', id: 'site-logo-black', alt: 'Site Logo', size: 125, style: "display:none"%>
+    </a>
+  </div>
+  <div class="flex-none">
+    <button id="theme-toggle" data-toggle-theme="black,lofi" data-act-class="ACTIVECLASS" class="btn btn-ghost btn-circle">
+      <i id="light-icon" class="fa-solid fa-sun text-2xl" style="display: none;"></i>
+      <i id="dark-icon" class="fa-solid fa-moon text-2xl"></i>
+    </button>
+    <div class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+        <div class="w-10 rounded-full">
+          <img
+            alt="Tailwind CSS Navbar component"
+            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+        </div>
+      </div>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+        <li>
+          <a class="justify-between">
+            Profile
+            <span class="badge">New</span>
+          </a>
+        </li>
+        <li><a>Settings</a></li>
+        <li><a>Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
