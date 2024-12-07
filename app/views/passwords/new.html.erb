@@ -1,0 +1,15 @@
+<div id="clearance" class="password-reset flex flex-col gap-1">
+  <h1 class="title text-xl"><%= t(".title") %></h1>
+  <p class="prose"><%= t(".description") %></p>
+
+  <%= form_for :password, url: passwords_path, class:"flex flex-col gap-4 mt-4" do |form| %>
+    <div class="text-field flex flex-col gap-2">
+      <%= form.label :email %>
+      <%= form.email_field :email %>
+    </div>
+
+    <div class="submit-field">
+      <%= form.submit class: "btn btn-ghost w-full"%>
+    </div>
+  <% end %>
+</div>
