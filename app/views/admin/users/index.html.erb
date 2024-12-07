@@ -10,11 +10,11 @@
     <%= link_to "New user", new_admin_user_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="admin_users" class="min-w-full">
-    <% @admin_users.each do |admin_user| %>
-      <%= render admin_user %>
+  <div id="users" class="min-w-full">
+    <% @users.each do |user| %>
+      <%= render user %>
       <p>
-        <%= link_to "Show this user", admin_user, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+        <%= link_to "Show this user", [:admin, user], class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
       </p>
     <% end %>
   </div>

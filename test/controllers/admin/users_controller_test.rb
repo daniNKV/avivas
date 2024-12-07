@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @admin_user = admin_users(:one)
+    @user = users(:one)
   end
 
   test "should get index" do
@@ -15,32 +15,32 @@ class Admin::UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create admin_user" do
-    assert_difference("Admin::User.count") do
-      post admin_users_url, params: { admin_user: { email: @admin_user.email, joined_at: @admin_user.joined_at, password: "secret", password_confirmation: "secret", username: @admin_user.username } }
+  test "should create user" do
+    assert_difference("User.count") do
+      post admin_users_url, params: { user: {} }
     end
 
-    assert_redirected_to admin_user_url(Admin::User.last)
+    assert_redirected_to admin_user_url(User.last)
   end
 
-  test "should show admin_user" do
-    get admin_user_url(@admin_user)
+  test "should show user" do
+    get admin_user_url(@user)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_admin_user_url(@admin_user)
+    get edit_admin_user_url(@user)
     assert_response :success
   end
 
-  test "should update admin_user" do
-    patch admin_user_url(@admin_user), params: { admin_user: { email: @admin_user.email, joined_at: @admin_user.joined_at, password: "secret", password_confirmation: "secret", username: @admin_user.username } }
-    assert_redirected_to admin_user_url(@admin_user)
+  test "should update user" do
+    patch admin_user_url(@user), params: { user: {} }
+    assert_redirected_to admin_user_url(@user)
   end
 
-  test "should destroy admin_user" do
-    assert_difference("Admin::User.count", -1) do
-      delete admin_user_url(@admin_user)
+  test "should destroy user" do
+    assert_difference("User.count", -1) do
+      delete admin_user_url(@user)
     end
 
     assert_redirected_to admin_users_url
