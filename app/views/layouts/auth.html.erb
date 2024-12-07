@@ -3,16 +3,19 @@
 <% end %>
 
 <% content_for :main_content do %>
-  <section class="flex items-center">
-    <div class="hero bg-base-200 min-h-screen">
+  <section
+    class="flex items-center bg-cover bg-center bg-no-repeat"
+    style="background-image: url('<%= image_path('backgrounds/wave.svg') %>');"
+  >
+    <div class="hero min-h-screen">
       <div class="hero-content flex-col">
-        <div class="card w-full max-w-md shrink-0 shadow-2xl">
-          <div class="flex justify-between px-6 py-3">
+        <div class="card bg-base-100 w-full max-w-md shrink-0 p-6">
+          <div class="flex justify-between">
             <figure>
               <%= image_tag 'logos/reduction.svg', id: 'site-logo-white', alt: 'Site Logo', size: 125 %>
               <%= image_tag 'logos/reduction-black.svg', id: 'site-logo-black', alt: 'Site Logo', size: 125, style: "display:none"%>
             </figure>
-            <p class="flex items-center">
+            <p class="flex align-center justify-end">
             <%= render partial: "/shared/theme_toggle" %>
             </p>
           </div>

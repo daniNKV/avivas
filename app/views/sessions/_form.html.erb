@@ -2,14 +2,14 @@
   <div class="text-field">
     <%= form.email_field :email,
                          placeholder: "Email",
-                         class: "input input-bordered w-full max-w-xs"
+                         class: "input input-bordered w-full max-w-md"
     %>
   </div>
   <div class="relative" data-controller="password-visibility">
     <%= form.password_field :password,
                             spellcheck: false,
                             placeholder: "Password",
-                            class: "input input-bordered w-full max-w-xs z-10",
+                            class: "input input-bordered w-full max-w-md z-10",
                             data: { password_visibility_target: "input" }
     %>
     <button type="button" data-action="password-visibility#toggle" class="z-20 absolute top-0 right-0 translate-y-1/2 -translate-x-1/2">

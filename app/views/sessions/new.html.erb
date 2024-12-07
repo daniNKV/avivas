@@ -3,9 +3,11 @@
   Sign In |
 <% end %>
 
-<div id="clearance" class="sign-in">
-  <h1 class="title text-center text-2xl p-4">Sign In</h1>
-
+<div id="clearance" class="sign-in flex flex-col gap-2">
+  <h1 class="title text-center text-2xl flex flex-col">
+    Sign In
+    <span class="prose text-center text-sm">Authorized personnel only.</span>
+  </h1>
   <%= render partial: '/sessions/form' %>
 
 </div>
