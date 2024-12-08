@@ -1,1 +1,1 @@
-Phonelib.default_country = ["AR", "ES", "US", "UK"]
+Phonelib.default_country = [ "AR", "ES", "US", "UK" ]
