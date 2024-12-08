@@ -32,7 +32,14 @@ class User < ApplicationRecord
               message: "must be a valid email address"
             }
 
-  validates :phone, phone: true
+  validates :phone,
+            phone:
+              {
+                possible: true,
+                allow_blank: true,
+                types: [ :mobile ],
+                countries: [ :ar, :us ]
+              }
 
   validates :first_name,
             length: {
