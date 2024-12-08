@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+.pagy {
+    @apply flex space-x-1 font-semibold gap-1 text-sm;
+    a:not(.gap) {
+        @apply btn rounded-lg btn-outline;
+        &:not([href]) { /* disabled links */
+            @apply btn btn-ghost rounded-lg btn-disabled;
+        }
+        &.current {
+            @apply btn btn-ghost rounded-lg;
+        }
+    }
+    label {
+        @apply inline-block whitespace-nowrap bg-gray-200 rounded-lg px-3 py-0.5;
+        input {
+            @apply btn btn-outline;
+        }
+    }
+}
+
 /*
 
 @layer components {

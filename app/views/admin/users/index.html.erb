@@ -14,7 +14,6 @@
       <i class="fas fa-plus"></i> Add User
     <% end %>
     </header>
-
   <article id="users-stats" class="flex justify-between items-center max-w-screen-2xl ">
     <div class="stats stats-vertical sm:stats-horizontal mx-auto shadow w-full">
       <div class="stat">
@@ -66,11 +65,9 @@
         </tr>
         </tfoot>
       </table>
-      <div class="join mx-auto">
-        <button class="join-item btn btn-ghost btn-lg">«</button>
-        <button class="join-item btn btn-ghost btn-lg">Page 22</button>
-        <button class="join-item btn btn-ghost btn-lg">»</button>
-      </div>
+
+      <%== pagy_nav(@pagy) %>
+
     </div>
   </article>
 </section>

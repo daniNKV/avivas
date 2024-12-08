@@ -78,3 +78,5 @@ gem "pundit", "~> 2.4"
 
 # Add utilities for generating fake data
 gem "faker", "~> 3.5"
+
+gem "pagy", "~> 9.3"
