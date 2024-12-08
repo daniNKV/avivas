@@ -1,5 +1,10 @@
 <div id="<%= dom_id user %>">
   <p class="p-2">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= user.full_name %>
+  </p>
+
+  <p class="p-2">
     <strong class="block font-medium mb-1">Username:</strong>
     <%= user.username %>
   </p>
@@ -7,6 +12,16 @@
   <p class="p-2">
     <strong class="block font-medium mb-1">Email:</strong>
     <%= user.email %>
+  </p>
+
+  <p class="p-2">
+    <strong class="block font-medium mb-1">Phone:</strong>
+    <%= user.phone %>
+  </p>
+
+  <p class="p-2">
+    <strong class="block font-medium mb-1">Role:</strong>
+    <%= user.role %>
   </p>
 
   <p class="p-2">

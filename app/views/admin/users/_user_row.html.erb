@@ -10,16 +10,19 @@
       </div>
       <div>
         <div class="font-bold"><%= user.username %></div>
-        <div class="text-sm opacity-50">United States</div>
+        <div class="text-sm opacity-50"><%= user.full_name %></div>
       </div>
     </div>
   </td>
   <td>
     <%= user.email %>
     <br />
-    <span class="badge badge-ghost badge-sm">Desktop Support Technician</span>
+    <span class="badge badge-ghost badge-sm"><%=  user.phone %></span>
   </td>
-  <td>    <%= user.joined_at %>
+  <td>
+    <%= user.role.capitalize %>
+    <br>
+    <span class="badge badge-ghost badge-sm"><%= user.status.capitalize %></span>
   </td>
   <th>
     <%= link_to "details", [:admin, user], class: "btn btn-ghost btn-md text-xs" %>

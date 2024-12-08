@@ -1,4 +1,4 @@
-<%= form_with(model: [:admin, user], local: true, class: "form-control") do |form| %>
+<%= form_with(model: [:admin, user], local: true, class: "max-w-md") do |form| %>
   <% if user.errors.any? %>
     <div id="error_explanation" class="alert alert-error">
       <div>
@@ -12,32 +12,58 @@
     </div>
   <% end %>
 
-  <div class="form-control w-full max-w-md p-2">
+  <div class="form-control w-full">
+    <%= form.label :first_name, class: "label" %>
+    <%= form.text_field :first_name, class: "input input-bordered w-full" %>
+  </div>
+
+  <div class="form-control w-full">
+    <%= form.label :last_name, class: "label" %>
+    <%= form.text_field :last_name, class: "input input-bordered w-full" %>
+  </div>
+
+  <div class="form-control w-full">
     <%= form.label :username, class: "label" %>
     <%= form.text_field :username, class: "input input-bordered w-full" %>
   </div>
 
-  <div class="form-control w-full max-w-md p-2">
+  <div class="form-control w-full">
     <%= form.label :email, class: "label" %>
     <%= form.text_field :email, class: "input input-bordered w-full" %>
   </div>
 
-  <div class="form-control w-full max-w-md p-2">
+  <div class="form-control w-full">
+    <%= form.label :phone, class: "label" %>
+    <%= form.telephone_field :phone, class: "input input-bordered w-full" %>
+  </div>
+
+  <div class="form-control w-full">
     <%= form.label :password, class: "label" %>
-    <%= form.password_field :password, class: "input input-bordered w-full" %>
+    <div class="relative" data-controller="password-visibility">
+      <%= form.password_field :password,
+                              spellcheck: false,
+                              placeholder: "Password",
+                              class: "input input-bordered w-full z-10",
+                              data: { password_visibility_target: "input" }
+      %>
+      <button type="button" data-action="password-visibility#toggle" class="z-20 absolute top-0 right-0 translate-y-1/2 -translate-x-1/2">
+        <span data-password-visibility-target="icon"><i class="fa-solid fa-eye"></i></span>
+        <span data-password-visibility-target="icon" class="hidden"><i class="fa-solid fa-eye-slash"></i></span>
+      </button>
+    </div>
   </div>
 
-  <div class="form-control w-full max-w-md p-2">
-    <%= form.label :password_confirmation, class: "label" %>
-    <%= form.password_field :password_confirmation, class: "input input-bordered w-full" %>
+  <div class="form-control">
+    <%= form.label :role, class: "label" %>
+    <%= form.select :role, options_for_select(User.roles.keys.map { |role| [role.titleize, role] }, @user.role), {}, { class: "select select-bordered w-full" } %>
   </div>
 
-  <div class="form-control w-full max-w-md p-2">
+  <div class="form-control w-full">
     <%= form.label :joined_at, class: "label" %>
-    <%= form.datetime_field :joined_at, class: "input input-bordered w-full" %>
+    <%= form.date_field :joined_at, class: "input input-bordered w-full" %>
   </div>
 
-  <div class="form-control max-w-md mt-5">
-    <%= form.submit class: "btn btn-outline" %>
+  <div class="form-control mt-5">
+    <%= form.submit "Submit", class: "btn btn-outline" %>
   </div>
 <% end %>
