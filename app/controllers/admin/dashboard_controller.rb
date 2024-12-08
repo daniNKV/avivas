@@ -1,5 +1,5 @@
 class Admin::DashboardController < ApplicationController
-  layout 'admin'
+  layout "admin"
   def index
   end
 end

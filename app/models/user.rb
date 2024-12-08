@@ -59,9 +59,11 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+  def admin?; role == :admin; end
+  def manager?; role == :manager; end
+  def employee?; role == :employee; end
 
   private
-
   def normalize_phone_number
     self.phone= Phonelib.parse(phone).international if phone.present?
   end

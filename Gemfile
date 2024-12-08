@@ -69,3 +69,5 @@ gem "bcrypt", "~> 3.1"
 gem "clearance", "~> 2.9"
 
 gem "phonelib", "~> 0.10.1"
+
+gem "pundit", "~> 2.4"
