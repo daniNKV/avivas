@@ -4,7 +4,20 @@ class Admin::UsersController < ApplicationController
 
   # GET /admin/users or /admin/users.json
   def index
-    @pagy, @users = pagy(User.all)
+    @users = User.all
+    puts @users.count
+    @users = @users.by_name_or_email(params[:query]) if params[:query].present?
+    @users = @users.by_role(params[:role]) if params[:role].present?
+    @users = @users.by_status(params[:status]) if params[:status].present?
+
+    if params[:order].present?
+      @query = @query.order(params[:order])
+    end
+    puts @users.count
+    @total_users_count = User.count
+    @filtered_users_count = @users.count
+
+    @pagy, @users = pagy(@users)
   end
 
   # GET /admin/users/1 or /admin/users/1.json
