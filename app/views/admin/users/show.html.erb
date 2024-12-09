@@ -39,10 +39,8 @@
       <span class="indicator-item indicator-top indicator-center badge badge-lg badge-primary p-6 text-xl font-bold rounded-lg">
         <%= @user.status.capitalize %>
       </span>
-      <figure>
-        <img
-          src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-          alt="Movie" />
+      <figure class="max-w-[300px]">
+        <%= image_tag current_user.avatar_url, alt: "#{current_user.username}'s avatar", class: "user-avatar " %>
       </figure>
       <div class="card-body">
         <%= render @user %>

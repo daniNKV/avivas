@@ -25,10 +25,22 @@ User.delete_all
     phone: generated_phone,
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
-    role: Faker::Number.between(from: 0, to: 3),
-    status: Faker::Number.between(from: 0, to: 2),
+    role: Faker::Number.between(from: 0, to: 2),
+    status: Faker::Number.between(from: 0, to: 1),
     joined_at: Faker::Date.backward(days: 365 * 5)
   )
 end
+
+User.create!(
+  username: "admin",
+  password: "admin-password",
+  email: "admin@email.com",
+  phone:  "+1#{Faker::Number.number(digits: 10)}",
+  first_name: "Avivas",
+  last_name: "Administrator",
+  role: 2,
+  status: 0,
+  joined_at: Faker::Date.backward(days: 365 * 5)
+)
 
 puts "Created #{User.count} users"

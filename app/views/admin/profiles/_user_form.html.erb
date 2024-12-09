@@ -1,0 +1,64 @@
+<%= form_with(model: [:admin, user], url: admin_profiles_update_path(@user), method: :patch, class: "max-w-md") do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation" class="alert alert-error">
+      <div>
+        <span><%= pluralize(user.errors.count, "error") %> prohibited this admin_user from being saved:</span>
+        <ul>
+          <% user.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-control w-full">
+    <%= form.label :first_name, class: "label" %>
+    <%= form.text_field :first_name, class: "input input-bordered w-full" %>
+  </div>
+
+  <div class="form-control w-full">
+    <%= form.label :last_name, class: "label" %>
+    <%= form.text_field :last_name, class: "input input-bordered w-full" %>
+  </div>
+
+  <div class="form-control w-full">
+    <%= form.label :username, class: "label" %>
+    <%= form.text_field :username, class: "input input-bordered w-full" %>
+  </div>
+
+  <div class="form-control w-full">
+    <%= form.label :email, class: "label" %>
+    <%= form.text_field :email, class: "input input-bordered w-full" %>
+  </div>
+
+  <div class="form-control w-full">
+    <%= form.label :phone, class: "label" %>
+    <%= form.telephone_field :phone, class: "input input-bordered w-full" %>
+  </div>
+
+  <div class="form-control w-full">
+    <%= form.label :password, class: "label" %>
+    <div class="relative" data-controller="password-visibility">
+      <%= form.password_field :password,
+                              spellcheck: false,
+                              placeholder: "Password",
+                              class: "input input-bordered w-full z-10",
+                              data: { password_visibility_target: "input" }
+      %>
+      <button type="button" data-action="password-visibility#toggle" class="z-20 absolute top-0 right-0 translate-y-1/2 -translate-x-1/2">
+        <span data-password-visibility-target="icon"><i class="fa-solid fa-eye"></i></span>
+        <span data-password-visibility-target="icon" class="hidden"><i class="fa-solid fa-eye-slash"></i></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="form-control w-full">
+    <label class="label">Avatar</label>
+    <%= form.file_field :avatar, class: "file-input file-input-bordered w-full" %>
+  </div>
+
+  <div class="form-control mt-5">
+    <%= form.submit "Submit", class: "btn btn-outline" %>
+  </div>
+<% end %>

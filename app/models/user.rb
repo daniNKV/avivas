@@ -81,6 +81,13 @@ class User < ApplicationRecord
     self.password = SecureRandom.hex(20)
     save!
   end
+  def avatar_url
+    if avatar.attached?
+      Rails.application.routes.url_helpers.rails_blob_path(avatar, only_path: true)
+    else
+      "/images/default_avatar.webp"
+    end
+  end
 
   private
   def normalize_phone_number
