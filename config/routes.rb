@@ -4,7 +4,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: "dashboard#index"
-    resources :users
+    resources :users do
+      member do
+        post :block
+      end
+    end
   end
 
   resources :passwords, controller: "clearance/passwords", only: [ :create, :new ]

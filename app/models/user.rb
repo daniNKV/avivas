@@ -3,14 +3,9 @@ class User < ApplicationRecord
   has_one_attached :avatar
   before_save :normalize_phone_number
 
-  enum :role, {
-    member: 0,
-    employee: 1,
-    manager: 2,
-    admin: 3
-  }, suffix: true
+  enum :role, [ :member, :employee, :manager, :admin ], suffix: true
 
-  enum :status, { active: 0, inactive: 1, blocked: 2 }, suffix: true
+  enum :status, [ :active, :inactive, :blocked ], suffix: true
 
   scope :by_name_or_email, ->(query) {
     where("LOWER(first_name) LIKE :search OR LOWER(username) LIKE :search OR LOWER(last_name) LIKE :search OR LOWER(email) LIKE :search",
@@ -80,6 +75,12 @@ class User < ApplicationRecord
   def admin?; role == :admin; end
   def manager?; role == :manager; end
   def employee?; role == :employee; end
+  def blocked?; status == :blocked; end
+  def block
+    self.status = :blocked
+    self.password = SecureRandom.hex(20)
+    save!
+  end
 
   private
   def normalize_phone_number

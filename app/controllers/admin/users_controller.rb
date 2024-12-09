@@ -71,6 +71,12 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def block
+    user = User.find(params[:id])
+    user.block
+    redirect_to [:admin, user], notice: "User was successfully blocked."
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
