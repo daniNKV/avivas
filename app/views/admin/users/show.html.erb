@@ -35,10 +35,6 @@
   </article>
 
   <section id="user-information" class="flex justify-center mt-4">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
-
     <div class="card indicator md:card-side bg-base-100 shadow-xl">
       <span class="indicator-item indicator-top indicator-center badge badge-lg badge-primary p-6 text-xl font-bold rounded-lg">
         <%= @user.status.capitalize %>
