@@ -127,6 +127,15 @@ Before you begin, ensure you have the following installed:
     ```
     bundle install
     ```
+   2.1 Install STMP server for development
+    ```
+    sudo apt-get -y install golang-go
+    go install github.com/mailhog/MailHog@latest
+    ```
+   2.2 Run the STMP server
+    ```
+    ~/go/bin/MailHog
+    ```
 
 3. Install JavaScript dependencies:
     If you’re using Yarn:
@@ -159,6 +168,7 @@ Before you begin, ensure you have the following installed:
     ```
     rails test
     ```
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

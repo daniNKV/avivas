@@ -2,6 +2,7 @@ class Admin::UsersController < ApplicationController
   layout "admin"
   before_action :set_user, only: %i[ show edit update destroy ]
   before_action :require_login
+  require "faker"
 
   # GET /admin/users or /admin/users.json
   def index
@@ -37,9 +38,13 @@ class Admin::UsersController < ApplicationController
   # POST /admin/users or /admin/users.json
   def create
     @user = User.new(user_params)
-
+    password = Faker::Internet.password(min_length: 8, max_length: 8, special_characters: false)
+    username = Faker::Internet.unique.user_name(separators: [ "" ])
+    @user.password = BCrypt::Password.create(password)
+    @user.username = user_params[:username] ? user_params[:username] : username
     respond_to do |format|
       if @user.save
+        Admin::UserMailer.with(user: @user, password: password, username: username).account_creation_email.deliver_later
         format.html { redirect_to [ :admin, @user ], notice: "User was successfully created." }
         format.json { render :show, status: :created, location: @user }
       else
@@ -86,6 +91,16 @@ class Admin::UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :bio, :phone, :username, :email, :password, :joined_at, :other_permitted_params)
+      params.require(:user).permit(
+        :first_name,
+        :last_name,
+        :bio,
+        :phone,
+        :username,
+        :email,
+        :password,
+        :role,
+        :joined_at,
+        :other_permitted_params)
     end
 end
