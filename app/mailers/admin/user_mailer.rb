@@ -11,7 +11,16 @@ class Admin::UserMailer < ApplicationMailer
 
     mail(
       to: @user.email,
-      subject: "Your Avivas Administration account has been created just now!"
+      subject: "Your Avivas account has been created just now!"
+    )
+  end
+
+  def account_recovery_email
+    @user = params[:user]
+    @password = params[:password]
+    mail(
+      to: @user.email,
+      subject: "Your Avivas account has been enabled just now!"
     )
   end
 end

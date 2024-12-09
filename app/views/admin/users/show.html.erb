@@ -21,11 +21,18 @@
           <%= button_to [:admin, @user], method: :delete, class: "btn btn-outline btn-lg lg:btn-wide" do %>
             <i class="fas fa-trash-alt"></i> Destroy
           <% end %>
-          <% if not @user.blocked? %>
+          <% if @user.active_status? || @user.inactive_status? %>
             <%= button_to block_admin_user_path(@user), method: :post, class: "btn btn-outline btn-lg lg:btn-wide" do %>
-              <i class="fas fa-ban"></i> Block
+              <i class="fas fa-ban"></i>
+              Block
+            <% end %>
+          <% elsif @user.blocked_status? %>
+            <%= button_to activate_admin_user_path(@user), method: :post, class: "btn btn-outline btn-lg lg:btn-wide" do %>
+              <i class="fas fa-check-circle"></i>
+              Activate
             <% end %>
           <% end %>
+
           <%= link_to edit_admin_user_path(@user), class: "btn btn-outline btn-lg lg:btn-wide" do %>
             <i class="fas fa-edit"></i> Update
           <% end %>

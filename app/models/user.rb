@@ -79,11 +79,9 @@ class User < ApplicationRecord
   def manager?; role == :manager; end
   def employee?; role == :employee; end
   def blocked?; status == :blocked; end
-  def block
-    self.status = :blocked
-    self.password = SecureRandom.hex(20)
-    save!
-  end
+  def active?; status == :active; end
+  def inactive?; status == :inactive; end
+
   def avatar_url
     if avatar.attached?
       Rails.application.routes.url_helpers.rails_blob_path(avatar, only_path: true)

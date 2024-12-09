@@ -79,8 +79,25 @@ class Admin::UsersController < ApplicationController
 
   def block
     user = User.find(params[:id])
-    user.block
-    redirect_to [:admin, user], notice: "User was successfully blocked."
+    user.status = :blocked
+    if user.save!
+      redirect_to [:admin, user], notice: "User was successfully blocked."
+    else
+      redirect_to [:admin, user], alert: "User was not blocked."
+    end
+  end
+
+  def activate
+    user = User.find(params[:id])
+    new_password = SecureRandom.hex(8)
+    user.status = :active
+    user.password = BCrypt::Password.create(new_password)
+    if user.save!
+      Admin::UserMailer.with(user: user, password: new_password).account_recovery_email.deliver_later
+      redirect_to [:admin, user], notice: "User was successfully unblocked."
+    else
+      redirect_to [:admin, user], alert: "User was not unblocked."
+    end
   end
 
   private
