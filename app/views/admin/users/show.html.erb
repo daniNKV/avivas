@@ -2,7 +2,7 @@
 
 <section class="flex flex-col gap-4 mx-auto">
   <header class="flex justify-between">
-    <h1 class="font-bold text-4xl">
+    <h1 class="font-bold text-xl md:text-4xl">
       <i class="fas fa-eye pr-2"></i>
       Showing: <%= @user.username %></h1>
     <%= link_to admin_users_path, class: "btn btn-ghost" do %>
@@ -10,19 +10,47 @@
     <% end %>
   </header>
 
-  <article id="actions" class="flex justify-center">
-    <div class="join">
-      <%= button_to "Destroy", [:admin, @user], method: :delete, class: "btn btn-outline join-item btn-lg btn-wide" %>
-      <button class="btn btn-outline btn-lg btn-wide">Block</button>
-      <%= link_to "Update", edit_admin_user_path(@user), class: "btn btn-outline join-item btn-lg btn-wide" %>
-    </div>
+  <article id="actions">
+    <details class="collapse bg-base-100 collapse-arrow border-2 border-base-300 rounded-lg shadow-md">
+      <summary class="collapse-title font-medium">
+        <i class="fa-solid fa-wand-magic-sparkles mr-1 text-xl"></i>
+        Actions
+      </summary>
+      <div class="collapse-content">
+        <div class="flex flex-wrap gap-2 justify-evenly">
+          <%= button_to [:admin, @user], method: :delete, class: "btn btn-outline btn-lg lg:btn-wide" do %>
+            <i class="fas fa-trash-alt"></i> Destroy
+          <% end %>
+          <button class="btn btn-outline btn-lg lg:btn-wide">
+            <i class="fas fa-ban"></i> Block
+          </button>
+          <%= link_to edit_admin_user_path(@user), class: "btn btn-outline btn-lg lg:btn-wide" do %>
+            <i class="fas fa-edit"></i> Update
+          <% end %>
+        </div>
+      </div>
+    </details>
   </article>
-  <section id="user-information" class="">
+
+  <section id="user-information" class="flex justify-center">
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
 
-    <%= render @user %>
+    <div class="card md:card-side bg-base-100 shadow-xl">
+      <figure>
+        <img
+          src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+          alt="Movie" />
+      </figure>
+      <div class="card-body">
+        <%= render @user %>
+
+        <div class="card-actions justify-end">
+          <button class="btn btn-primary">Watch</button>
+        </div>
+      </div>
+    </div>
 
   </section>
 </section>

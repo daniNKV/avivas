@@ -1,4 +1,4 @@
-<section class="w-full">
+<section class="w-full mx-auto">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
@@ -14,21 +14,22 @@
       <i class="fas fa-plus"></i> Add User
     <% end %>
     </header>
+
   <article id="users-stats" class="flex justify-between items-center max-w-screen-2xl ">
     <div class="stats stats-vertical sm:stats-horizontal mx-auto shadow w-full">
-      <div class="stat">
+      <div class="stat place-items-center">
         <div class="stat-title">Downloads</div>
         <div class="stat-value">31K</div>
         <div class="stat-desc">Jan 1st - Feb 1st</div>
       </div>
 
-      <div class="stat">
+      <div class="stat place-items-center">
         <div class="stat-title">New Users</div>
         <div class="stat-value">4,200</div>
         <div class="stat-desc">↗︎ 400 (22%)</div>
       </div>
 
-      <div class="stat">
+      <div class="stat place-items-center">
         <div class="stat-title">New Registers</div>
         <div class="stat-value">1,200</div>
         <div class="stat-desc">↘︎ 90 (14%)</div>
@@ -36,8 +37,15 @@
     </div>
   </article>
 
-  <article id="users" class="max-w-screen-2xl ">
-    <div class="overflow-x-auto flex flex-col justify-center items-center">
+  <article id="users" class="max-w-screen-xl mx-auto mt-4">
+    <div id="users-filter" class="flex flex-col md:flex-row gap-3 items-center justify-center py-2">
+      <input class="input input-bordered w-full" placeholder="Search a user" />
+      <button class="btn btn-outline w-full md:btn-wide">Search</button>
+    </div>
+    <div class="overflow-x-auto flex flex-col justify-center items-center pt-4">
+
+      <%== pagy_nav(@pagy) %>
+
       <table class="table">
         <!-- head -->
         <thead>
