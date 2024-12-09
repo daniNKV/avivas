@@ -23,6 +23,7 @@ User.delete_all
     password: Faker::Internet.password(min_length: 8, max_length: 16),
     email: Faker::Internet.unique.email,
     phone: generated_phone,
+    bio: Faker::Lorem.paragraph,
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     role: Faker::Number.between(from: 0, to: 2),
@@ -36,9 +37,10 @@ User.create!(
   password: "admin-password",
   email: "admin@email.com",
   phone:  "+1#{Faker::Number.number(digits: 10)}",
+  bio: Faker::Lorem.paragraph,
   first_name: "Avivas",
   last_name: "Administrator",
-  role: 2,
+  role: 3,
   status: 0,
   joined_at: Faker::Date.backward(days: 365 * 5)
 )

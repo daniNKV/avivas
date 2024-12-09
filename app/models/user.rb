@@ -18,6 +18,23 @@ class User < ApplicationRecord
     where(status: status)
   }
 
+  validates :first_name,
+            length: {
+              minimum: 2,
+              maximum: 50,
+              allow_blank: true
+            }
+
+  validates :last_name,
+            length: {
+              minimum: 2,
+              maximum: 50,
+              allow_blank: true
+            }
+
+  validates :bio,
+            length: { maximum: 250, allow_blank: true}
+
   validates :username,
             presence: true,
             uniqueness: { case_sensitive: false },
@@ -46,20 +63,6 @@ class User < ApplicationRecord
                 types: [ :mobile ],
                 countries: [ :ar, :us ]
               }
-
-  validates :first_name,
-            length: {
-              minimum: 2,
-              maximum: 50,
-              allow_blank: true
-            }
-
-  validates :last_name,
-            length: {
-              minimum: 2,
-              maximum: 50,
-              allow_blank: true
-            }
 
   validates :role,
             presence: true,

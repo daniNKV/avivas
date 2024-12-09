@@ -11,8 +11,90 @@
     <% end %>
   </header>
 
-  <article class="max-w-lg mx-auto">
-    <%= render "user_form", user: @user %>
+  <article class="mx-auto">
+    <details open class="collapse collapse-arrow">
+      <summary class="collapse-title text-xl">
+        <h2 class="font-bold text-2xl">
+          <span>
+             <i class="fas fa-user text-2xl mr-2"></i>
+          </span>
+          Personal Information
+        </h2>
+      </summary>
+      <div class="collapse-content">
+        <%= form_with(model: [:admin, @user], url: admin_profiles_update_path(@user), method: :patch, class: "max-w-md") do |form| %>
+          <div class="form-control w-full">
+            <%= form.label :first_name, class: "label" %>
+            <%= form.text_field :first_name, class: "input input-bordered w-full" %>
+          </div>
+
+          <div class="form-control w-full">
+            <%= form.label :last_name, class: "label" %>
+            <%= form.text_field :last_name, class: "input input-bordered w-full" %>
+          </div>
+
+          <div class="form-control w-full">
+            <%= form.label :phone, class: "label" %>
+            <%= form.telephone_field :phone, class: "input input-bordered w-full" %>
+          </div>
+
+          <div class="form-control mt-5">
+            <%= form.submit "Submit", class: "btn btn-outline" %>
+          </div>
+        <% end %>
+      </div>
+    </details>
+  </article>
+
+  <article class="mx-auto">
+    <details class="collapse collapse-arrow w-full">
+      <summary class="collapse-title text-xl font-medium">
+        <h2 class="font-bold text-2xl">
+          <span>
+             <i class="fas fa-id-badge text-2xl mr-2"></i>
+          </span>
+          Profile Information
+        </h2>
+      </summary>
+      <div class="collapse-content gap-2 mx-auto">
+        <%= form_with(model: [:admin, @user], url: admin_profiles_update_path(@user), method: :patch, class: "flex max-w-lg") do |form| %>
+          <div class="form-control w-full">
+            <%= form.label "Biography", class: "label" %>
+            <%= form.text_area :bio, class: "textarea textarea-bordered" %>
+            <%= form.submit "Submit", class: "btn btn-ghost" %>
+          </div>
+        <% end %>
+        <%= form_with(model: [:admin, @user], url: admin_profiles_update_path(@user), method: :patch, local: true, class: "max-w-lg") do |form| %>
+          <div class="form-control w-full">
+            <label class="label">Avatar</label>
+            <%= form.file_field :avatar, class: "file-input file-input-bordered w-full" %>
+            <%= form.submit "Submit", class: "btn btn-ghost" %>
+          </div>
+        <% end %>
+      </div>
+    </details>
+  </article>
+
+  <article class="mx-auto">
+    <details class="collapse collapse-arrow w-full">
+      <summary class="collapse-title text-xl font-medium">
+        <h2 class="font-bold text-2xl">
+          <span>
+             <i class="fas fa-user-cog mr-2"></i>
+          </span>
+          Account Information
+        </h2>
+      </summary>
+      <div class="collapse-content gap-2 mx-auto">
+        <%= form_with(model: [:admin, @user], url: admin_profiles_update_path(@user), method: :patch, class: "flex max-w-lg") do |form| %>
+          <div class="form-control w-full">
+            <%= form.label :email, class: "label" %>
+            <%= form.text_field :email, class: "input input-bordered w-full" %>
+            <%= form.submit "Submit", class: "btn btn-ghost" %>
+          </div>
+        <% end %>
+      </div>
+    </details>
   </article>
 
 </section>

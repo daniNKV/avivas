@@ -6,19 +6,18 @@
   <div class="hero-content text-center">
     <div class="max-w-md">
       <div class="h-auto w-[200px] rounded-full mx-auto">
-        <%= image_tag current_user.avatar_url, alt: "#{current_user.username}'s avatar", class: "user-avatar" %>
+        <%= image_tag @user.avatar_url, alt: "#{@user.username}'s avatar", class: "user-avatar" %>
       </div>
-      <h1 class="text-5xl font-bold pt-4"><%= current_user.username %></h1>
-      <h2 class="text-2xl"><%= current_user.full_name %>
+      <h1 class="text-5xl font-bold pt-4"><%= @user.username %></h1>
+      <h2 class="text-2xl"><%= @user.full_name %>
         <br>
       </h2>
-      <p class="badge badge-secondary badge-lg p-4 rounded-lg">Member since: <%= current_user.joined_at %></p>
+      <p class="badge badge-secondary badge-lg p-4 rounded-lg">Member since: <%= @user.joined_at %></p>
       <p class="badge badge-secondary badge-lg p-4 rounded-lg">
-        <%= current_user.role.capitalize %>
+        <%= @user.role.capitalize %>
       </p>
       <p class="py-6">
-        Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-        quasi. In deleniti eaque aut repudiandae et a id nisi.
+        <%= @user.bio %>
       </p>
 
       <% if current_user == @user %>

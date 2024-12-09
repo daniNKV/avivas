@@ -1,16 +1,16 @@
 class Admin::ProfilesController < ApplicationController
   layout "admin"
-  # before_action :require_login
-  before_action :set_user
   before_action :require_login
 
   def edit
+    @user = current_user
+    puts @user.inspect
   end
 
   def update
     @user = current_user
     if @user.update(profile_params)
-      redirect_to root_path, notice: 'Profile updated successfully'
+      redirect_to admin_public_profile_path @user, notice: 'Profile updated successfully'
     else
       render :edit
     end
@@ -26,12 +26,12 @@ class Admin::ProfilesController < ApplicationController
   private
 
   def set_user
-    @user = current_user  # Assuming you have logic to fetch the current admin
+    @user = current_user
   end
 
   def profile_params
     params.require(:user).permit(
-      :first_name, :last_name, :username, :email, :password, :avatar, :phone
+      :first_name, :last_name, :username, :email, :password, :avatar, :phone, :bio
     )
   end
 end
