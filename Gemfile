@@ -64,10 +64,19 @@ group :test do
   gem "selenium-webdriver"
 end
 
+# Add cryptography
 gem "bcrypt", "~> 3.1"
 
+# Add authentication
 gem "clearance", "~> 2.9"
 
+# Helpers for standardize phone numbers management
 gem "phonelib", "~> 0.10.1"
 
+# Add role authorization capabilities
 gem "pundit", "~> 2.4"
+
+# Add utilities for generating fake data
+gem "faker", "~> 3.5"
+
+gem "pagy", "~> 9.3"

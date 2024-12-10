@@ -1,0 +1,12 @@
+<% if errors.any? %>
+  <div id="error_explanation" class="alert alert-error">
+    <div>
+      <span><%= pluralize(errors.count, "error") %> prohibited this admin_user from being saved:</span>
+      <ul>
+        <% errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>

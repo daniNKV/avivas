@@ -1,0 +1,36 @@
+<h1>Welcome to the Avivas Family!</h1>
+
+<div style="text-align: center;">
+  <img src="<%= asset_path('logos/horizontal.svg') %>" alt="Avivas Logo"/>
+</div>
+
+<p class="welcome-message">
+  Exciting news! Your account has been created and you've just become a valued member of our incredible team.
+  <br>
+  We're thrilled to have you on board.
+</p>
+
+<div class="details-container">
+  <p class="welcome-message">
+    Here are your login details to get started:
+  </p>
+
+  <p class="credentials">
+    <span class="highlight">Username:</span> <%= @user.email %>
+  </p>
+
+  <p class="credentials">
+    <span class="highlight">Temporary Password:</span> <%= @password %>
+  </p>
+</div>
+
+<p class="welcome-message highlight">
+  Important: Please change your password upon first login to ensure
+  the security of your new account.
+</p>
+
+<hr>
+
+<p class="welcome-message" style="font-size: 14px; text-align: center;">
+  © 2024 Avivas. Welcome aboard!
+</p>

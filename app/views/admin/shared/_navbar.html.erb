@@ -3,32 +3,30 @@
     <label for="sidebar-drawer" class="btn btn-ghost btn-circle drawer-button lg:hidden">
       <i class="fa-solid fa-bars text-2xl"></i>
     </label>
-    <a class="p-2" href="#">
+    <%= link_to admin_root_path, class: "btn btn-ghost" do %>
       <%= image_tag 'logos/horizontal.svg', id: 'site-logo-white', alt: 'Site Logo', size: 125 %>
-      <%= image_tag 'logos/horizontal-black.svg', id: 'site-logo-black', alt: 'Site Logo', size: 125, style: "display:none"%>
-    </a>
+      <%= image_tag 'logos/horizontal-black.svg', id: 'site-logo-black', alt: 'Site Logo', size: 125, style: "display:none"%>    <% end %>
   </div>
   <div class="flex-none">
     <%= render "shared/theme_toggle" %>
     <div class="dropdown dropdown-end">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
-          <img
-            alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+          <%= image_tag current_user.avatar_url, alt: "#{current_user.username}'s avatar", class: "user-avatar" %>
         </div>
       </div>
       <ul
         tabindex="0"
         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
         <li>
-          <a class="justify-between">
-            Profile
-            <span class="badge">New</span>
-          </a>
+          <%= link_to "Profile", admin_public_profile_path(current_user.username) %>
         </li>
-        <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+        <li>
+          <%= link_to "Settings", admin_profiles_edit_path(current_user) %>
+        </li>
+        <li>
+          <%= button_to "Sign out", sign_out_path, method: :delete %>
+        </li>
       </ul>
     </div>
   </div>

@@ -11,18 +11,12 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/daniNKV/avivas">
+    <img src="docs/images/horizontal.svg" alt="Logo" width="300" height="auto">
   </a>
-
-<h3 align="center">Avivas</h3>
-
   <p align="center">
-    🏋️‍♂️ Sportswear Inventory Management System
-    <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
+    👟 Sportswear Clothing Store
+    <br>
     <a href="https://github.com/daniNKV/avivas">View Demo</a>
     ·
     <a href="https://github.com/daniNKV/avivas/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
@@ -60,20 +54,26 @@
 <!-- ABOUT THE PROJECT -->
 ## 📖 About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<div align="center">
+    <img src="docs/images/phrase.svg" alt="Domain Phrase" width="auto" height="auto">
+</div>
+
+
 Welcome to the ultimate solution for managing inventory, boosting sales, and elevating the customer experience for a renowned sportswear chain! This application is your all-in-one platform to ensure smooth operations and happy customers.
 
 #### 💡 What Does It Do?
-<strong>Stock Management:</strong> Empower the store staff with real-time tools to track, update, and optimize inventory like pros. From the latest running shoes to the trendiest activewear, everything is under control!
-<strong>Sales Processing:</strong> Speed up the checkout process and streamline sales with an intuitive interface designed to meet the fast-paced needs of retail.
-<strong>Public Product Catalog:</strong> Engage your customers with a sleek, modern product showcase. Let them explore what's in stock and get excited about their next purchase!
+**Stock Management:** Empower the store staff with real-time tools to track, update, and optimize inventory like pros. From the latest running shoes to the trendiest activewear, everything is under control!
+
+**Sales Processing:** Speed up the checkout process and streamline sales with an intuitive interface designed to meet the fast-paced needs of retail.
+
+**Public Product Catalog:** Engage your customers with a sleek, modern product showcase. Let them explore what's in stock and get excited about their next purchase!
+
 #### 🚀 Why It Matters
-<strong>Efficiency</strong>: Reduce errors and save time by automating and centralizing inventory management.
-<strong>Scalability</strong>: Handle growing demand and new stores with ease.
-Customer Delight: A seamless shopping experience keeps them coming back for more.
+**Efficiency:** Reduce errors and save time by automating and centralizing inventory management.
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+**Scalability:** Handle growing demand and new stores with ease.
 
+**Customer Delight:** A seamless shopping experience keeps them coming back for more.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -127,6 +127,15 @@ Before you begin, ensure you have the following installed:
     ```
     bundle install
     ```
+   2.1 Install STMP server for development
+    ```
+    sudo apt-get -y install golang-go
+    go install github.com/mailhog/MailHog@latest
+    ```
+   2.2 Run the STMP server
+    ```
+    ~/go/bin/MailHog
+    ```
 
 3. Install JavaScript dependencies:
     If you’re using Yarn:
@@ -159,6 +168,7 @@ Before you begin, ensure you have the following installed:
     ```
     rails test
     ```
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

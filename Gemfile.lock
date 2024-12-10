@@ -123,6 +123,8 @@ GEM
     erubi (1.13.0)
     et-orbi (1.2.11)
       tzinfo
+    faker (3.5.1)
+      i18n (>= 1.8.11, < 2)
     ffi (1.17.0-aarch64-linux-gnu)
     ffi (1.17.0-aarch64-linux-musl)
     ffi (1.17.0-arm-linux-gnu)
@@ -209,6 +211,7 @@ GEM
     nokogiri (1.16.8-x86_64-linux)
       racc (~> 1.4)
     ostruct (0.6.1)
+    pagy (9.3.3)
     parallel (1.26.3)
     parser (3.3.6.0)
       ast (~> 2.4.1)
@@ -407,9 +410,11 @@ DEPENDENCIES
   capybara
   clearance (~> 2.9)
   debug
+  faker (~> 3.5)
   importmap-rails
   jbuilder
   kamal
+  pagy (~> 9.3)
   phonelib (~> 0.10.1)
   propshaft
   puma (>= 5.0)

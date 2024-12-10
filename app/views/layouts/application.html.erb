@@ -21,11 +21,11 @@
   </head>
 
   <body class="flex flex-col mx-auto min-h-screen">
-    <header class="sticky top-0 left-0">
+    <header class="sticky top-0 left-0 z-50">
       <%= yield :header %>
     </header>
     <% if content_for?(:main_content) %>
-      <main>
+      <main class="z-30">
         <%= yield :main_content %>
       </main>
     <% else %>

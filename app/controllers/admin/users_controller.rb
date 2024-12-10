@@ -1,10 +1,25 @@
 class Admin::UsersController < ApplicationController
   layout "admin"
   before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :require_login
+  require "faker"
 
   # GET /admin/users or /admin/users.json
   def index
     @users = User.all
+    puts @users.count
+    @users = @users.by_name_or_email(params[:query]) if params[:query].present?
+    @users = @users.by_role(params[:role]) if params[:role].present?
+    @users = @users.by_status(params[:status]) if params[:status].present?
+
+    if params[:order].present?
+      @query = @query.order(params[:order])
+    end
+    puts @users.count
+    @total_users_count = User.count
+    @filtered_users_count = @users.count
+
+    @pagy, @users = pagy(@users)
   end
 
   # GET /admin/users/1 or /admin/users/1.json
@@ -23,9 +38,13 @@ class Admin::UsersController < ApplicationController
   # POST /admin/users or /admin/users.json
   def create
     @user = User.new(user_params)
-
+    password = Faker::Internet.password(min_length: 8, max_length: 8, special_characters: false)
+    username = Faker::Internet.unique.user_name(separators: [ "" ])
+    @user.password = BCrypt::Password.create(password)
+    @user.username = user_params[:username] ? user_params[:username] : username
     respond_to do |format|
       if @user.save
+        Admin::UserMailer.with(user: @user, password: password, username: username).account_creation_email.deliver_later
         format.html { redirect_to [ :admin, @user ], notice: "User was successfully created." }
         format.json { render :show, status: :created, location: @user }
       else
@@ -58,6 +77,29 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def block
+    user = User.find(params[:id])
+    user.status = :blocked
+    if user.save!
+      redirect_to [ :admin, user ], notice: "User was successfully blocked."
+    else
+      redirect_to [ :admin, user ], alert: "User was not blocked."
+    end
+  end
+
+  def activate
+    user = User.find(params[:id])
+    new_password = SecureRandom.hex(8)
+    user.status = :active
+    user.password = BCrypt::Password.create(new_password)
+    if user.save!
+      Admin::UserMailer.with(user: user, password: new_password).account_recovery_email.deliver_later
+      redirect_to [ :admin, user ], notice: "User was successfully unblocked."
+    else
+      redirect_to [ :admin, user ], alert: "User was not unblocked."
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -66,6 +108,16 @@ class Admin::UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :phone, :username, :email, :password, :joined_at, :other_permitted_params)
+      params.require(:user).permit(
+        :first_name,
+        :last_name,
+        :bio,
+        :phone,
+        :username,
+        :email,
+        :password,
+        :role,
+        :joined_at,
+        :other_permitted_params)
     end
 end

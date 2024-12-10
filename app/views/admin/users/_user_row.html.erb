@@ -3,9 +3,7 @@
     <div class="flex items-center gap-3">
       <div class="avatar">
         <div class="mask mask-squircle h-12 w-12">
-          <img
-            src="https://img.daisyui.com/images/profile/demo/2@94.webp"
-            alt="Avatar Tailwind CSS Component" />
+          <%= image_tag user.avatar_url, alt: "#{user.username}'s avatar", class: "user-avatar" %>
         </div>
       </div>
       <div>
@@ -22,7 +20,7 @@
   <td>
     <%= user.role.capitalize %>
     <br>
-    <span class="badge badge-ghost badge-sm"><%= user.status.capitalize %></span>
+    <span class="badge badge-primary p-2 rounded-lg badge-sm"><%= user.status.capitalize %></span>
   </td>
   <th>
     <%= link_to "details", [:admin, user], class: "btn btn-ghost btn-md text-xs" %>

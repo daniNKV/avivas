@@ -1,8 +1,4 @@
-<section class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
+<section class="w-full mx-auto">
   <% content_for :title, "Users" %>
 
   <header class="flex justify-between">
@@ -15,21 +11,21 @@
     <% end %>
     </header>
 
-  <article id="users-stats" class="flex justify-between items-center max-w-screen-2xl ">
+  <article id="users-stats" class="flex justify-between items-center max-w-screen-2xl py-4 ">
     <div class="stats stats-vertical sm:stats-horizontal mx-auto shadow w-full">
-      <div class="stat">
+      <div class="stat place-items-center">
         <div class="stat-title">Downloads</div>
         <div class="stat-value">31K</div>
         <div class="stat-desc">Jan 1st - Feb 1st</div>
       </div>
 
-      <div class="stat">
+      <div class="stat place-items-center">
         <div class="stat-title">New Users</div>
         <div class="stat-value">4,200</div>
         <div class="stat-desc">↗︎ 400 (22%)</div>
       </div>
 
-      <div class="stat">
+      <div class="stat place-items-center">
         <div class="stat-title">New Registers</div>
         <div class="stat-value">1,200</div>
         <div class="stat-desc">↘︎ 90 (14%)</div>
@@ -37,12 +33,30 @@
     </div>
   </article>
 
-  <article id="users" class="max-w-screen-2xl ">
-    <div class="overflow-x-auto flex flex-col justify-center items-center">
+  <article id="users" class="max-w-screen-xl mx-auto mt-4">
+    <%= form_tag admin_users_path, method: :get, class: "flex flex-col md:flex-row gap-3 items-center justify-center py-2" do %>
+      <%= text_field_tag :query,
+                         params[:query],
+                         placeholder: "Search users...",
+                         class: "input input-bordered w-full" %>
+
+      <%= submit_tag "Search",
+                     class: "btn btn-outline w-full md:btn-wide" %>
+
+      <%= link_to "Reset",
+                  admin_users_path,
+                  class: "btn btn-ghost join-item" %>
+    <% end %>
+
+    <div class="overflow-x-auto flex flex-col justify-center items-center pt-4">
+
+      <%== pagy_nav(@pagy) %>
+
       <table class="table">
         <!-- head -->
         <thead>
         <tr>
+          <th></th>
           <th>Username</th>
           <th>Contact</th>
           <th>Status</th>
@@ -59,6 +73,7 @@
         <!-- foot -->
         <tfoot>
         <tr>
+          <th></th>
           <th>Username</th>
           <th>Contact</th>
           <th>Status</th>
@@ -66,11 +81,9 @@
         </tr>
         </tfoot>
       </table>
-      <div class="join mx-auto">
-        <button class="join-item btn btn-ghost btn-lg">«</button>
-        <button class="join-item btn btn-ghost btn-lg">Page 22</button>
-        <button class="join-item btn btn-ghost btn-lg">»</button>
-      </div>
+
+      <%== pagy_nav(@pagy) %>
+
     </div>
   </article>
 </section>

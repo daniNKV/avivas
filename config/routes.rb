@@ -4,7 +4,15 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: "dashboard#index"
-    resources :users
+    get "profiles/edit"
+    patch "profiles/update"
+    get "profiles/:username", to: "profiles#show", as: "public_profile"
+    resources :users do
+      member do
+        post :block
+        post :activate
+      end
+    end
   end
 
   resources :passwords, controller: "clearance/passwords", only: [ :create, :new ]

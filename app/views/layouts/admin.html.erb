@@ -9,37 +9,48 @@
 <% end %>
 
 <% content_for :main_content do %>
-<div class="drawer min-h-full lg:drawer-open">
+<div class="drawer min-h-full lg:drawer-open z-30">
   <input id="sidebar-drawer" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content bg-base-100 mx-auto w-full p-4">
     <%= yield %>
   </div>
-  <div class="drawer-side fixed left-0 top-0 min-h-screen h-full">
+  <div class="drawer-side min-h-screen h-full">
     <label for="sidebar-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-    <ul class="menu bg-base-100 opacity-100 text-base-content text-base sticky left-0 top-0 min-h-screen rounded-box pt-[4rem] md:pt-0 w-60">
-      <li class="menu-title">Avivas Administration</li>
-      <li>
-        <%= link_to admin_root_url do %>
-          <i class="fa-solid fa-house"></i> Dashboard
-        <% end %>
-      </li>
-      <li>
-        <%= link_to admin_users_path do %>
-          <i class="fas fa-users"></i> Users
-        <% end %>
-      </li>
-      <li>
-        <a>
-          <i class="fas fa-box"></i> Products
-        </a>
-      </li>
-      <li>
-        <a>
-          <i class="fas fa-file-invoice"></i> Invoices
-        </a>
-      </li>
+    <ul class="menu bg-base-100 opacity-100 text-base-content text-base min-h-screen rounded-box pt-[4rem] md:pt-0 w-80">
+      <% if content_for?(:sidebar_content) %>
+        <%= yield :sidebar_content %>
+      <% else %>
+        <li class="menu-title">Avivas Administration</li>
+        <li>
+          <%= link_to admin_root_url do %>
+            <i class="fa-solid fa-house"></i> Dashboard
+          <% end %>
+        </li>
+        <li>
+          <%= link_to admin_users_path do %>
+            <i class="fas fa-users"></i> Users
+          <% end %>
+        </li>
+        <li>
+          <a>
+            <i class="fas fa-box"></i> Products
+          </a>
+        </li>
+        <li>
+          <a>
+            <i class="fas fa-file-invoice"></i> Invoices
+          </a>
+        </li>
+      <% end %>
     </ul>
   </div>
+</div>
+<div id="notice" class="toast toast-end fixed right-0 z-50">
+  <% if notice.present? %>
+    <div class="alert alert-info rounded-lg">
+      <span><%= notice %></span>
+    </div>
+  <% end %>
 </div>
 <% end %>
 

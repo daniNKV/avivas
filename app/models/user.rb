@@ -3,14 +3,37 @@ class User < ApplicationRecord
   has_one_attached :avatar
   before_save :normalize_phone_number
 
-  enum :role, {
-    member: 0,
-    employee: 1,
-    manager: 2,
-    admin: 3
-  }, suffix: true
+  enum :role, [ :member, :employee, :manager, :admin ], suffix: true
 
-  enum :status, { active: 0, inactive: 1, blocked: 2 }, suffix: true
+  enum :status, [ :active, :inactive, :blocked ], suffix: true
+
+  scope :by_name_or_email, ->(query) {
+    where("LOWER(first_name) LIKE :search OR LOWER(username) LIKE :search OR LOWER(last_name) LIKE :search OR LOWER(email) LIKE :search",
+          search: "%#{query.downcase}%")
+  }
+  scope :by_role, ->(role) {
+    where(role: role)
+  }
+  scope :by_status, ->(status) {
+    where(status: status)
+  }
+
+  validates :first_name,
+            length: {
+              minimum: 2,
+              maximum: 50,
+              allow_blank: true
+            }
+
+  validates :last_name,
+            length: {
+              minimum: 2,
+              maximum: 50,
+              allow_blank: true
+            }
+
+  validates :bio,
+            length: { maximum: 250, allow_blank: true }
 
   validates :username,
             presence: true,
@@ -32,21 +55,14 @@ class User < ApplicationRecord
               message: "must be a valid email address"
             }
 
-  validates :phone, phone: true
-
-  validates :first_name,
-            length: {
-              minimum: 2,
-              maximum: 50,
-              allow_blank: true
-            }
-
-  validates :last_name,
-            length: {
-              minimum: 2,
-              maximum: 50,
-              allow_blank: true
-            }
+  validates :phone,
+            phone:
+              {
+                possible: true,
+                allow_blank: true,
+                types: [ :mobile ],
+                countries: [ :ar, :us ]
+              }
 
   validates :role,
             presence: true,
@@ -62,6 +78,17 @@ class User < ApplicationRecord
   def admin?; role == :admin; end
   def manager?; role == :manager; end
   def employee?; role == :employee; end
+  def blocked?; status == :blocked; end
+  def active?; status == :active; end
+  def inactive?; status == :inactive; end
+
+  def avatar_url
+    if avatar.attached?
+      Rails.application.routes.url_helpers.rails_blob_path(avatar, only_path: true)
+    else
+      "/images/default_avatar.webp"
+    end
+  end
 
   private
   def normalize_phone_number
