@@ -10,7 +10,7 @@ class Admin::ProfilesController < ApplicationController
   def update
     @user = current_user
     if @user.update(profile_params)
-      redirect_to admin_public_profile_path @user, notice: 'Profile updated successfully'
+      redirect_to admin_public_profile_path @user, notice: "Profile updated successfully"
     else
       render :edit
     end
