@@ -4,9 +4,10 @@ class Admin::ProductsController < ApplicationController
   before_action :require_login
   # GET /admin/products or /admin/products.json
   def index
-    @products = User.all
+    @products = Product.all
 
-    @pagy, @products = pagy(@products)  end
+    @pagy, @products = pagy(@products)
+  end
 
   # GET /admin/products/1 or /admin/products/1.json
   def show

@@ -1,15 +1,44 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+<% content_for :title, "Showing Product" %>
+
+<section class="flex flex-col gap-4 mx-auto">
+  <header class="flex justify-between">
+    <h1 class="font-bold text-xl md:text-4xl">
+      <i class="fas fa-eye pr-2"></i>
+      Showing: <%= @product.name %></h1>
+    <%= link_to admin_products_path, class: "btn btn-ghost" do %>
+      <i class="fas fa-arrow-left"></i> Back to products
     <% end %>
+  </header>
 
-    <%= render @product %>
+  <article id="actions">
+    <details class="collapse bg-base-100 collapse-arrow border-2 border-base-300 rounded-lg shadow-md">
+      <summary class="collapse-title font-medium">
+        <i class="fa-solid fa-wand-magic-sparkles mr-1 text-xl"></i>
+        Actions
+      </summary>
+      <div class="collapse-content">
+        <div class="flex flex-wrap gap-2 justify-evenly">
+          <%= button_to [:admin, @product], method: :delete, class: "btn btn-outline btn-lg lg:btn-wide" do %>
+            <i class="fas fa-trash-alt"></i> Destroy
+          <% end %>
+          <%= link_to edit_admin_product_path(@product), class: "btn btn-outline btn-lg lg:btn-wide" do %>
+            <i class="fas fa-edit"></i> Update
+          <% end %>
+        </div>
+      </div>
+    </details>
+  </article>
 
-    <%= link_to "Edit this product", edit_admin_product_path(@product), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Back to products", admin_products_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this product", [:admin, @product], method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+  <section id="user-information" class="flex justify-center mt-4">
+    <div class="card indicator md:card-side bg-base-100 shadow-xl">
+      <span class="indicator-item indicator-top indicator-center badge badge-lg badge-primary p-6 text-xl font-bold rounded-lg">
+        <%= @product.published? %>
+      </span>
+      <figure class="max-w-[300px]">
+      </figure>
+      <div class="card-body">
+        <%= render @product %>
+      </div>
     </div>
-  </div>
-</div>
+  </section>
+</section>
