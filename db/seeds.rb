@@ -15,7 +15,6 @@ require 'faker'
 puts "Deleting current users"
 User.delete_all
 
-# Seed with new data
 40.times do
   generated_phone = "+1#{Faker::Number.number(digits: 10)}"
   User.create!(
@@ -34,8 +33,8 @@ end
 
 User.create!(
   username: "admin",
-  password: "admin-password",
-  email: "admin@email.com",
+  password: Rails.application.credentials.production.sudo_password || "admin-password",
+  email: Rails.application.credentials.production.sudo_username || "admin@email.com",
   phone:  "+1#{Faker::Number.number(digits: 10)}",
   bio: Faker::Lorem.paragraph,
   first_name: "Avivas",
@@ -46,3 +45,24 @@ User.create!(
 )
 
 puts "Created #{User.count} users"
+
+puts "Deleting current products"
+Product.delete_all
+
+40.times do
+  Product.create!(
+    name: Faker::Commerce.product_name,
+    description: Faker::Lorem.paragraph(sentence_count: 3),
+    unit_price: Faker::Commerce.price(range: 10.0..100.0).round(2),
+    stock: Faker::Number.between(from: 1, to: 100),
+    published: [true, false].sample,
+    deleted: false,
+    deleted_at: nil
+  )
+end
+
+puts "Created #{Product.count} products"
+
+puts "Cleaning up..."
+
+puts "Done!"

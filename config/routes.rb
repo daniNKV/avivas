@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         post :activate
       end
     end
+    resources :products
   end
 
   resources :passwords, controller: "clearance/passwords", only: [ :create, :new ]

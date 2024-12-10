@@ -1,0 +1,15 @@
+<div id="<%= dom_id product %>">
+  <div class="card w-full bg-base-100 shadow">
+    <div class="card-body">
+      <h2 class="card-title"><%= product.name %></h2>
+      <p><%= product.description %></p>
+      <p>Price: <%= number_to_currency(product.unit_price) %></p>
+      <p>Stock: <%= product.stock %></p>
+      <p>Published: <%= product.published ? 'Yes' : 'No' %></p>
+      <% if product.deleted %>
+        <p class="text-red-500">This product has been deleted.</p>
+        <p>Deleted At: <%= product.deleted_at %></p>
+      <% end %>
+    </div>
+  </div>
+</div>

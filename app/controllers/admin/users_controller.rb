@@ -1,8 +1,8 @@
 class Admin::UsersController < ApplicationController
+  require "faker"
   layout "admin"
   before_action :set_user, only: %i[ show edit update destroy ]
   before_action :require_login
-  require "faker"
 
   # GET /admin/users or /admin/users.json
   def index
