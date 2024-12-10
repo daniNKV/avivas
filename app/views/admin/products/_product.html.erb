@@ -3,8 +3,8 @@
     <div class="card-body">
       <h2 class="card-title"><%= product.name %></h2>
       <p><%= product.description %></p>
-      <p>Price: <%= number_to_currency(product.unit_price) %></p>
-      <p>Stock: <%= product.stock %></p>
+      <p>Price: <%= number_to_currency(product.base_price) %></p>
+      <p>Stock: <%= product.stock_quantity %></p>
       <p>Published: <%= product.published ? 'Yes' : 'No' %></p>
       <% if product.deleted %>
         <p class="text-red-500">This product has been deleted.</p>

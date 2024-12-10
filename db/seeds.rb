@@ -33,8 +33,8 @@ end
 
 User.create!(
   username: "admin",
-  password: Rails.application.credentials.production.sudo_password || "admin-password",
-  email: Rails.application.credentials.production.sudo_username || "admin@email.com",
+  password: "admin-password",
+  email: "admin@email.com",
   phone:  "+1#{Faker::Number.number(digits: 10)}",
   bio: Faker::Lorem.paragraph,
   first_name: "Avivas",
@@ -53,8 +53,8 @@ Product.delete_all
   Product.create!(
     name: Faker::Commerce.product_name,
     description: Faker::Lorem.paragraph(sentence_count: 3),
-    unit_price: Faker::Commerce.price(range: 10.0..100.0).round(2),
-    stock: Faker::Number.between(from: 1, to: 100),
+    base_price: Faker::Commerce.price(range: 10.0..100.0).round(2),
+    stock_quantity: Faker::Number.between(from: 1, to: 100),
     published: [true, false].sample,
     deleted: false,
     deleted_at: nil
