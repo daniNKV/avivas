@@ -3,7 +3,7 @@
     <div class="flex items-center gap-3">
       <div class="avatar">
         <div class="mask mask-squircle h-12 w-12">
-          <img src="" alt="avatar" />
+          <img src="<%= product.product_image_url %>" alt="Product Image" />
           <div class="bg-gray-100 mask mask-squircle h-12 w-12"></div>
         </div>
       </div>
@@ -17,13 +17,11 @@
   </td>
   <td>
     <%= product.stock_quantity %>
-    <br />
-    <span class="badge badge-ghost badge-sm"></span>
   </td>
   <td>
-    <%= product.published %>
-    <br>
-    <span class="badge badge-primary p-2 rounded-lg badge-sm"></span>
+    <span class="badge badge-secondary p-4 rounded-lg badge-sm">
+      <%= humanize_published product.published %>
+    </span>
   </td>
   <th>
     <%= link_to "details", [:admin, product], class: "btn btn-ghost btn-md text-xs" %>

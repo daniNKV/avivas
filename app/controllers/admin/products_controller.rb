@@ -5,6 +5,7 @@ class Admin::ProductsController < ApplicationController
   # GET /admin/products or /admin/products.json
   def index
     @products = Product.all
+    @products= @products.by_name_or_description(params[:query]) if params[:query].present?
 
     @pagy, @products = pagy(@products)
   end

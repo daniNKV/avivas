@@ -10,7 +10,7 @@
     <% end %>
   </header>
 
-  <article id="actions">
+  <article id="actions" class="">
     <details class="collapse bg-base-100 collapse-arrow border-2 border-base-300 rounded-lg shadow-md">
       <summary class="collapse-title font-medium">
         <i class="fa-solid fa-wand-magic-sparkles mr-1 text-xl"></i>
@@ -30,15 +30,13 @@
   </article>
 
   <section id="user-information" class="flex justify-center mt-4">
-    <div class="card indicator md:card-side bg-base-100 shadow-xl">
+    <div class="indicator md:card-side bg-base-100 shadow-xl">
       <span class="indicator-item indicator-top indicator-center badge badge-lg badge-primary p-6 text-xl font-bold rounded-lg">
-        <%= @product.published? %>
+        Status: <%= humanize_published @product.published? %>
       </span>
-      <figure class="max-w-[300px]">
-      </figure>
-      <div class="card-body">
-        <%= render @product %>
-      </div>
+
+      <%= render @product %>
+
     </div>
   </section>
 </section>
