@@ -1,6 +1,6 @@
 class Admin::ProductsController < ApplicationController
   layout "admin"
-  before_action :set_admin_product, only: %i[ show edit update destroy update_stock ]
+  before_action :set_admin_product, only: %i[ show edit update destroy update_stock publish hide ]
   before_action :require_login
   # GET /admin/products or /admin/products.json
   def index
@@ -71,13 +71,21 @@ class Admin::ProductsController < ApplicationController
   end
 
   def publish
-    @product.update(published: true)
-    redirect_to admin_product_path @product, notice: "Product published successfully"
+    if @product.update(published: true)
+      flash[:notice] = "Product published successfully"
+      redirect_to admin_product_path @product
+    else
+      render :show
+    end
   end
 
   def hide
-    @product.update(published: false)
-    redirect_to admin_product_path @product, notice: "Product hidden successfully"
+    if @product.update(published: false)
+      flash[:notice] = "Product hidden successfully"
+      redirect_to admin_product_path @product
+    else
+      render :show
+    end
   end
 
   private
