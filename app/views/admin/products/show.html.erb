@@ -21,6 +21,17 @@
           <%= button_to [:admin, @product], method: :delete, class: "btn btn-outline btn-lg lg:btn-wide" do %>
             <i class="fas fa-trash-alt"></i> Destroy
           <% end %>
+          <% if @product.published? %>
+            <%= button_to hide_admin_product_path(@product), method: :post, class: "btn btn-outline btn-lg lg:btn-wide" do %>
+              <i class="fas fa-cloud-upload-alt"></i>
+              Hide
+            <% end %>
+          <% else %>
+            <%= button_to publish_admin_product_path(@product), method: :post, class: "btn btn-outline btn-lg lg:btn-wide" do %>
+              <i class="fas fa-paper-plane"></i>
+              Publish
+            <% end %>
+          <% end %>
           <%= link_to edit_admin_product_path(@product), class: "btn btn-outline btn-lg lg:btn-wide" do %>
             <i class="fas fa-edit"></i> Update
           <% end %>
@@ -40,17 +51,11 @@
           <h2 class="card-title"><%= @product.name %></h2>
           <p><%= @product.description %></p>
           <p>Price: <%= number_to_currency(@product.base_price) %></p>
-          <div data-controller="reveal">
-            <div>
-              Stock: <%= @product.stock_quantity %>
-              <button data-action="reveal#show" type="button" class="btn">Modificar</button>
-            </div>
-
-            <div data-reveal-target="item" class="hidden mt-4">
-
-              Hey 👋
-            </div>
-          </div>
+          <%= turbo_frame_tag dom_id(@product) do %>
+            <label>Stock: <%= @product.stock_quantity %>
+              <%= link_to 'Modify', update_stock_admin_product_path(@product), class: "btn btn-outline btn-sm p-1" %>
+            </label>
+          <% end %>
           <p>Published: <%= @product.published ? 'Yes' : 'No' %></p>
           <% if @product.deleted %>
             <p>Deleted At: <span class="badge badge-lg badge-error"><%= @product.deleted_at %></p>
@@ -67,7 +72,7 @@
   </section>
 
   <section id="product-variants">
-    <div tabindex="0" class="collapse collapse-open border-base-300 bg-base-200 border">
+    <div tabindex="0" class="collapse collapse-open border-base-300 bg-base-100 border border-2 rounded-lg shadow-md">
       <div class="collapse-title text-xl font-medium">Product Variants</div>
       <div class="collapse-content">
         <p></p>

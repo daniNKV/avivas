@@ -1,6 +1,6 @@
 class Admin::ProductsController < ApplicationController
   layout "admin"
-  before_action :set_admin_product, only: %i[ show edit update destroy ]
+  before_action :set_admin_product, only: %i[ show edit update destroy update_stock ]
   before_action :require_login
   # GET /admin/products or /admin/products.json
   def index
@@ -41,7 +41,7 @@ class Admin::ProductsController < ApplicationController
   # PATCH/PUT /admin/products/1 or /admin/products/1.json
   def update
     respond_to do |format|
-      if @product.update(admin_product_params)
+      if set_admin_product.update(admin_product_params)
         format.html { redirect_to admin_product_path @product, notice: "Product was successfully updated." }
         format.json { render :show, status: :ok, location: @product }
       else
@@ -59,6 +59,25 @@ class Admin::ProductsController < ApplicationController
       format.html { redirect_to admin_products_path, status: :see_other, notice: "Product was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def update_stock
+    if @product.update(stock_quantity: params[:stock_quantity])
+      render :show
+    else
+      @product.errors.clear unless request.patch?
+      render partial: "admin/products/shared/update_stock", locals: { product: @product }
+    end
+  end
+
+  def publish
+    @product.update(published: true)
+    redirect_to admin_product_path @product, notice: "Product published successfully"
+  end
+
+  def hide
+    @product.update(published: false)
+    redirect_to admin_product_path @product, notice: "Product hidden successfully"
   end
 
   private

@@ -13,7 +13,14 @@ Rails.application.routes.draw do
         post :activate
       end
     end
-    resources :products
+    resources :products do
+      member do
+        get :update_stock
+        patch :update_stock
+        post :publish
+        post :hide
+      end
+    end
   end
 
   resources :passwords, controller: "clearance/passwords", only: [ :create, :new ]

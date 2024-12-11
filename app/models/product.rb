@@ -14,6 +14,10 @@ class Product < ApplicationRecord
                                              search: "%#{query.downcase}%")
   }
 
+  def published?
+    self.published == true
+  end
+
   def product_image_url
     if images.attached?
       Rails.application.routes.url_helpers.rails_blob_path(images.first, only_path: true)
