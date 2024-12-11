@@ -52,35 +52,7 @@
 
       <%== pagy_nav(@pagy) %>
 
-      <table class="table">
-        <!-- head -->
-        <thead>
-        <tr>
-          <th></th>
-          <th>Username</th>
-          <th>Contact</th>
-          <th>Status</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @users.each do |user| %>
-
-          <%= render partial: "admin/users/user_row", locals: { user: user } %>
-
-        <% end %>
-        </tbody>
-        <!-- foot -->
-        <tfoot>
-        <tr>
-          <th></th>
-          <th>Username</th>
-          <th>Contact</th>
-          <th>Status</th>
-          <th></th>
-        </tr>
-        </tfoot>
-      </table>
+      <%= render partial: "users_table", locals: { users: @users }%>
 
       <%== pagy_nav(@pagy) %>
 

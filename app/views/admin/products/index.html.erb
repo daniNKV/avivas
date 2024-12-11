@@ -51,39 +51,7 @@
     <div class="overflow-x-auto flex flex-col justify-center items-center pt-4">
 
       <%== pagy_nav(@pagy) %>
-
-      <table class="table">
-        <!-- head -->
-        <thead>
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Stock</th>
-          <th>Published</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @products.each do |product| %>
-
-          <%= render partial: "admin/products/product_row", locals: { product: product } %>
-
-        <% end %>
-        </tbody>
-        <!-- foot -->
-        <tfoot>
-        <tr>
-          <th></th>
-          <th>Price</th>
-          <th>Name</th>
-          <th>Stock</th>
-          <th>Published</th>
-          <th></th>
-        </tr>
-        </tfoot>
-      </table>
-
+      <%= render "products_table", locals: { products: @products } %>
       <%== pagy_nav(@pagy) %>
 
     </div>
