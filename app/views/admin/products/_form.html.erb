@@ -1,7 +1,7 @@
 
-<%= form_with(model: [:admin, product], class: "form-control w-full") do |form| %>
+<%= form_with(model: [:admin, product], class: "form-control gap-2 w-full") do |form| %>
   <% if product.errors.any? %>
-    <div id="error_explanation" class="alert-error px-3 py-2 font-medium rounded-lg mt-3">
+    <div id="error_explanation" class="flex flex-col items-center alert alert-error px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(product.errors.count, "error") %> prohibited this admin_product from being saved:</h2>
 
       <ul>
@@ -26,7 +26,7 @@
   <div class="form-control w-full">
     <%= form.label :base_price, class: "label" %>
 
-    <%= form.text_field :base_price, class: "input input-bordered w-full" %>
+    <%= form.number_field :base_price, step: 0.5, class: "input input-bordered w-full" %>
   </div>
 
   <div class="form-control w-full">
@@ -34,11 +34,9 @@
 
     <%= form.number_field :stock_quantity, class: "input input-bordered w-full" %>
   </div>
-
-  <div class="form-control w-full flex">
-    <%= form.label :published, class: "label" %>
-
-    <%= form.checkbox :published, class: "checkbox" %>
+  <div class="form-control w-full">
+    <%= form.label :images, class: "label" %>
+    <%= form.file_field :images, multiple: true, accept: 'image/png,image/jpeg,image/jpg', class: "file-input file-input-bordered w-full" %>
   </div>
 
   <div class="form-control mt-4">

@@ -29,14 +29,49 @@
     </details>
   </article>
 
-  <section id="user-information" class="flex justify-center mt-4">
-    <div class="indicator md:card-side bg-base-100 shadow-xl">
-      <span class="indicator-item indicator-top indicator-center badge badge-lg badge-primary p-6 text-xl font-bold rounded-lg">
-        Status: <%= humanize_published @product.published? %>
-      </span>
+  <section id="product-information" class="w-full mt-4 indicator">
+    <p class="indicator-item indicator-center mx-auto font-bold text-xl badge badge-xl badge-primary p-4 rounded-lg">
+      Status: <%= humanize_published @product.published? %>
+    </p>
+    <div class="card md:card-side bg-base-100 shadow-xl mx-auto">
+      <%= render partial: "shared/carousel", locals: { images: @product.images, default_image: @product.product_image_url  } %>
+      <div class="card-body grow ">
+        <div class="flex flex-col gap-3">
+          <h2 class="card-title"><%= @product.name %></h2>
+          <p><%= @product.description %></p>
+          <p>Price: <%= number_to_currency(@product.base_price) %></p>
+          <div data-controller="reveal">
+            <div>
+              Stock: <%= @product.stock_quantity %>
+              <button data-action="reveal#show" type="button" class="btn">Modificar</button>
+            </div>
 
-      <%= render @product %>
+            <div data-reveal-target="item" class="hidden mt-4">
 
+              Hey 👋
+            </div>
+          </div>
+          <p>Published: <%= @product.published ? 'Yes' : 'No' %></p>
+          <% if @product.deleted %>
+            <p>Deleted At: <span class="badge badge-lg badge-error"><%= @product.deleted_at %></p>
+          <% end %>
+        </div>
+
+        <div class="card-actions justify-end">
+          <p>Created <%=  time_ago_in_words(@product.created_at) %> ago</p>
+          
+          <p>Last update <%= time_ago_in_words(@product.updated_at) %> ago</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="product-variants">
+    <div tabindex="0" class="collapse collapse-open border-base-300 bg-base-200 border">
+      <div class="collapse-title text-xl font-medium">Product Variants</div>
+      <div class="collapse-content">
+        <p></p>
+      </div>
     </div>
   </section>
 </section>
