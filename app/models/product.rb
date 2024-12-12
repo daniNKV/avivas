@@ -2,10 +2,11 @@ class Product < ApplicationRecord
   has_many_attached :images
   has_many :variants, dependent: :destroy
   has_and_belongs_to_many :collections
-  has_and_belongs_to_many :categories, options: {
-    join_table: "product_categories_products",
-    association_foreign_key: :product_category_id
-  }
+  has_and_belongs_to_many :categories,
+                          join_table: "product_categories_products",
+                          foreign_key: :product_id,
+                          association_foreign_key: :product_category_id
+
   validates :name, presence: true, length: { maximum: 255 }
   validates :description, presence: true, length: { maximum: 10000 }
   validates :base_price, numericality: { greater_than_or_equal_to: 0 }

@@ -53,17 +53,27 @@
           <p><%= @product.description %></p>
           <p>
             <i class="fas fa-dollar-sign"></i>
-            Price: <%= number_to_currency(@product.base_price) %>
+            <strong>Price: </strong><%= number_to_currency(@product.base_price) %>
           </p>
           <%= turbo_frame_tag dom_id(@product) do %>
             <label>
               <i class="fas fa-boxes"></i>
-              <span class="pr-2">Stock: <%= @product.stock_quantity %></span>
+              <span class="pr-2"><strong>Stock: </strong> <%= @product.stock_quantity %></span>
               <%= link_to update_stock_admin_product_path(@product), class: "btn btn-outline rounded-lg" do %>
                 Modify <i class="fas fa-pencil"></i>
               <% end %>
             </label>
           <% end %>
+          <ul class="flex flex-wrap gap-2">
+            <strong>Categories: </strong>
+            <% if @product.categories.count > 0 %>
+              <% @product.categories.each do |category| %>
+                <li><%= category.name %>, </li>
+              <% end %>
+            <% else %>
+              <p> Unassigned</p>
+            <% end %>
+          </ul>
           <% if @product.deleted %>
             <p>Deleted At: <span class="badge badge-lg badge-error"><%= @product.deleted_at %></p>
           <% end %>
@@ -82,7 +92,7 @@
   </section>
 
   <section id="product-images">
-    <div tabindex="0" class="collapse collapse-plus border-base-300 bg-base-100 border border-1 rounded-lg shadow-md">
+    <div tabindex="0" class="collapse collapse-open collapse-plus border-base-300 bg-base-100 border border-1 rounded-lg shadow-md">
       <div class="collapse-title text-xl font-medium">
         <i class="fas fa-photo-film"></i>
         Images

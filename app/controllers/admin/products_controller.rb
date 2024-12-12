@@ -25,8 +25,10 @@ class Admin::ProductsController < ApplicationController
 
   # POST /admin/products or /admin/products.json
   def create
-    @product = Product.new(admin_product_params)
-
+    category_ids = params.dig(:product, :categories)&.reject(&:blank?)
+    product_params = admin_product_params.except(:categories)
+    @product = Product.new(product_params)
+    @product.category_ids = category_ids if category_ids.present?
     respond_to do |format|
       if @product.save
         format.html { redirect_to admin_product_path @product, notice: "Product was successfully created." }
@@ -40,8 +42,13 @@ class Admin::ProductsController < ApplicationController
 
   # PATCH/PUT /admin/products/1 or /admin/products/1.json
   def update
+    category_ids = params.dig(:product, :categories)&.reject(&:blank?)
+    product_params = admin_product_params.except(:categories)
+
     respond_to do |format|
-      if set_admin_product.update(admin_product_params)
+      if @product.update(product_params)
+        @product.category_ids = category_ids if category_ids.present?
+
         format.html { redirect_to admin_product_path @product, notice: "Product was successfully updated." }
         format.json { render :show, status: :ok, location: @product }
       else

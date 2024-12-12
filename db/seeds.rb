@@ -89,12 +89,26 @@ end
 
 puts "Deleting current categories"
 Product::Category.delete_all
-
+categories = Set.new([
+                       "Tops",
+                       "Bottoms",
+                       "Activewear",
+                       "Footwear",
+                       "Accessories",
+                       "Loungewear & Sleepwear",
+                       "Outerwear & Jackets",
+                       "Hats & Headwear",
+                       "Bags & Backpacks",
+                       "Socks & Hosiery",
+                       "Jewelry & Watches",
+                       "Sale & Clearance",
+                       "Swimwear"
+                     ])
 puts "Seeding categories..."
 
-10.times do
+categories.each do |category|
   Product::Category.create!(
-    name: Faker::Commerce.department(),
+    name: category,
     description: Faker::Marketing.buzzwords.capitalize + " styles for every occasion.",
     active: true
   )
