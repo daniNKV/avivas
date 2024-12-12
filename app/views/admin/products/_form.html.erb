@@ -28,7 +28,10 @@
 
     <%= form.number_field :base_price, step: 0.5, class: "input input-bordered w-full" %>
   </div>
-
+  <div class="form-control">
+    <label for="categories" class="label">Categories</label>
+    <%= form.collection_select :categories, Product::Category.all, :id, :name,  class:"select select-bordered w-full max-w-xs", multiple: true %>
+  </div>
   <div class="form-control w-full">
     <%= form.label :stock_quantity, class: "label" %>
 

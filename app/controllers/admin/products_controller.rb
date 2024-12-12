@@ -127,6 +127,7 @@ class Admin::ProductsController < ApplicationController
         :stock_quantity,
         :image,
         images: [],
+        categories: [],
       )
     end
 end

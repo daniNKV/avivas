@@ -15,7 +15,7 @@ require 'faker'
 puts "Deleting current users"
 User.delete_all
 
-puts "Creating users"
+puts "Creating users..."
 40.times do
   generated_phone = "+1#{Faker::Number.number(digits: 10)}"
   User.create!(
@@ -32,7 +32,7 @@ puts "Creating users"
   )
 end
 
-puts "Creating demo users"
+puts "Creating demo users..."
 User.create!(
   username: "admin",
   password: "admin-password",
@@ -70,9 +70,9 @@ User.create!(
   joined_at: Faker::Date.backward(days: 365 * 5)
 )
 
-puts "Created #{User.count} users"
+puts "Deleting current products..."
 
-puts "Deleting current products"
+puts "Seeding products..."
 Product.delete_all
 
 40.times do
@@ -87,8 +87,23 @@ Product.delete_all
   )
 end
 
-puts "Created #{Product.count} products"
+puts "Deleting current categories"
+Category.delete_all
 
+puts "Seeding categories..."
+
+10.times do
+  Category.create!(
+    name: Faker::Commerce.department(),
+    description: Faker::Marketing.buzzwords.capitalize + " styles for every occasion.",
+    active: true
+  )
+end
+
+puts "Seeding complete! ✔"
 puts "Cleaning up..."
+puts "Created #{User.count} users"
+puts "Created #{Product.count} products"
+puts "Created #{Category.count} product categories"
 
 puts "Done!"
