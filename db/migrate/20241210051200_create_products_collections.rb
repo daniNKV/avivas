@@ -1,6 +1,6 @@
 class CreateProductsCollections < ActiveRecord::Migration[8.0]
   def change
-    create_table :products_collections do |t|
+    create_table :product_collections do |t|
       t.string :name
       t.text :description
       t.boolean :active
