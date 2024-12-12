@@ -16,9 +16,9 @@
       <%= category.description %>
     </p>
     <div class="card-actions justify-center mt-4">
-      <button class="btn btn-sm btn-error text-white">
-        <i class="fa fa-trash mr-2"></i>Delete
-      </button>
+      <%= button_to admin_products_category_path(category), method: :delete, class: "btn btn-wide btn-outline" do %>
+        <i class="fa fa-trash mr-2"></i> Delete
+    <% end %>
       <%= link_to edit_admin_products_category_path(category), class:"btn btn-sm btn-outline" do %>
         <i class="fa fa-edit mr-2"></i>Edit
       <% end %>

@@ -88,12 +88,12 @@ Product.delete_all
 end
 
 puts "Deleting current categories"
-Category.delete_all
+Product::Category.delete_all
 
 puts "Seeding categories..."
 
 10.times do
-  Category.create!(
+  Product::Category.create!(
     name: Faker::Commerce.department(),
     description: Faker::Marketing.buzzwords.capitalize + " styles for every occasion.",
     active: true
@@ -104,6 +104,6 @@ puts "Seeding complete! ✔"
 puts "Cleaning up..."
 puts "Created #{User.count} users"
 puts "Created #{Product.count} products"
-puts "Created #{Category.count} product categories"
+puts "Created #{Product::Category.count} product categories"
 
 puts "Done!"

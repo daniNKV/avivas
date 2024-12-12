@@ -1,5 +1,8 @@
-<%= form_with(scope: @product_category, url: admin_products_categories_path(@product_category),
+<%= form_with(model: [:admin, :products, @product_category],
+              url: @product_category.persisted? ? admin_products_category_path(@product_category) : admin_products_categories_path,
+              method: @product_category.persisted? ? :patch : :post,
               class: "contents max-w-md mx-auto p-4 flex flex-col gap-4") do |form| %>
+
   <% if @product_category.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(@product_category.errors.count, "error") %> prohibited this product_category from being saved:</h2>

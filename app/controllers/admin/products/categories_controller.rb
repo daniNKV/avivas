@@ -36,7 +36,7 @@ class Admin::Products::CategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @product_category.update(product_category_params)
-        format.html { redirect_to [:admin, :products, @product_category], notice: "Category was successfully updated." }
+        format.html { redirect_to admin_products_categories_path, notice: "Category was successfully updated." }
         format.json { render :show, status: :ok, location: @product_category }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -47,10 +47,14 @@ class Admin::Products::CategoriesController < ApplicationController
 
   # DELETE /admin/products/categories/1 or /admin/products/categories/1.json
   def destroy
+    @product_category.products.clear
+
+    category = @product_category.name
+    puts category
     @product_category.destroy!
 
     respond_to do |format|
-      format.html { redirect_to admin_products_product_categories_path, status: :see_other, notice: "Category was successfully destroyed." }
+      format.html { redirect_to admin_products_category_path, status: :see_other, notice: "Category was successfully destroyed." }
       format.json { head :no_content }
     end
   end
