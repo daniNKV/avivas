@@ -15,6 +15,7 @@ require 'faker'
 puts "Deleting current users"
 User.delete_all
 
+puts "Creating users"
 40.times do
   generated_phone = "+1#{Faker::Number.number(digits: 10)}"
   User.create!(
@@ -31,15 +32,40 @@ User.delete_all
   )
 end
 
+puts "Creating demo users"
 User.create!(
   username: "admin",
   password: "admin-password",
   email: "admin@email.com",
   phone:  "+1#{Faker::Number.number(digits: 10)}",
   bio: Faker::Lorem.paragraph,
-  first_name: "Avivas",
-  last_name: "Administrator",
+  first_name: "Administrator",
+  last_name: "Avivas",
   role: 3,
+  status: 0,
+  joined_at: Faker::Date.backward(days: 365 * 5)
+)
+User.create!(
+  username: "manager",
+  password: "manager-password",
+  email: "manager@email.com",
+  phone:  "+1#{Faker::Number.number(digits: 10)}",
+  bio: Faker::Lorem.paragraph,
+  first_name: "Manager",
+  last_name: "Avivas",
+  role: 2,
+  status: 0,
+  joined_at: Faker::Date.backward(days: 365 * 5)
+)
+User.create!(
+  username: "employee",
+  password: "employee-password",
+  email: "employee@email.com",
+  phone:  "+1#{Faker::Number.number(digits: 10)}",
+  bio: Faker::Lorem.paragraph,
+  first_name: "Employee",
+  last_name: "Avivas",
+  role: 1,
   status: 0,
   joined_at: Faker::Date.backward(days: 365 * 5)
 )

@@ -5,9 +5,12 @@
         <p class="py-1"><%= error %></p>
       <% end %>
     <% end %>
-    <div class=" flex flex-col sm:flex-row">
-      <%= f.number_field :stock_quantity, class: "input input-bordered w-full max-w-xs", placeholder: "Enter the new stock"%>
-      <%= f.submit 'Save', class: "btn btn-ghost" %>
+    <div class=" flex flex-col gap-2">
+      <%= f.number_field :stock_quantity, class: "input input-bordered w-full", placeholder: "Enter the new stock"%>
+      <div class="flex">
+        <%= link_to 'Cancel', admin_product_path(@product), class: "btn btn-ghost"%>
+        <%= f.submit 'Save', class: "btn btn-outline grow" %>
+      </div>
     </div>
   <% end %>
 <% end %>

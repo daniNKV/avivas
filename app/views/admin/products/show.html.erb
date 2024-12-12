@@ -4,7 +4,7 @@
   <header class="flex justify-between">
     <h1 class="font-bold text-xl md:text-4xl">
       <i class="fas fa-eye pr-2"></i>
-      Showing: <%= @product.name %></h1>
+      <%= @product.name %></h1>
     <%= link_to admin_products_path, class: "btn btn-ghost" do %>
       <i class="fas fa-arrow-left"></i> Back to products
     <% end %>
@@ -45,37 +45,80 @@
       Status: <%= humanize_published @product.published? %>
     </p>
     <div class="card md:card-side bg-base-100 shadow-xl mx-auto">
-      <%= render partial: "shared/carousel", locals: { images: @product.images, default_image: @product.product_image_url  } %>
+      <%= image_tag @product.product_image_url, size: 300, class: "max-w-md object-cover" %>
+      <%#= render partial: "shared/carousel", locals: { images: @product.images, default_image: @product.product_image_url  } %>
       <div class="card-body grow ">
         <div class="flex flex-col gap-3">
           <h2 class="card-title"><%= @product.name %></h2>
           <p><%= @product.description %></p>
-          <p>Price: <%= number_to_currency(@product.base_price) %></p>
+          <p>
+            <i class="fas fa-dollar-sign"></i>
+            Price: <%= number_to_currency(@product.base_price) %>
+          </p>
           <%= turbo_frame_tag dom_id(@product) do %>
-            <label>Stock: <%= @product.stock_quantity %>
-              <%= link_to 'Modify', update_stock_admin_product_path(@product), class: "btn btn-outline btn-sm p-1" %>
+            <label>
+              <i class="fas fa-boxes"></i>
+              <span class="pr-2">Stock: <%= @product.stock_quantity %></span>
+              <%= link_to 'Modify', update_stock_admin_product_path(@product), class: "btn btn-outline rounded-lg" %>
             </label>
           <% end %>
-          <p>Published: <%= @product.published ? 'Yes' : 'No' %></p>
           <% if @product.deleted %>
             <p>Deleted At: <span class="badge badge-lg badge-error"><%= @product.deleted_at %></p>
           <% end %>
         </div>
-
         <div class="card-actions justify-end">
-          <p>Created <%=  time_ago_in_words(@product.created_at) %> ago</p>
-          
-          <p>Last update <%= time_ago_in_words(@product.updated_at) %> ago</p>
+          <p>
+            <i class="fas fa-history"></i>
+            Created <%=  time_ago_in_words(@product.created_at) %> ago
+          </p>
+          <p>
+            <i class="fas fa-sync"></i>
+            Last update <%= time_ago_in_words(@product.updated_at) %> ago</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="product-images">
+    <div tabindex="0" class="collapse collapse-plus border-base-300 bg-base-100 border border-1 rounded-lg shadow-md">
+      <div class="collapse-title text-xl font-medium">
+        <i class="fas fa-photo-film"></i>
+        Images
+        <%= @product.images.count %>
+      </div>
+      <div class="collapse-content flex flex-col items-center">
+        <%= turbo_frame_tag dom_id(@product, :images), class: "w-full max-w-screen-md" do %>
+          <%= link_to "Add image", add_images_admin_product_path(@product), class: "btn btn-outline btn-sm rounded-lg w-full px-4" %>
+        <% end %>
+        <div class="flex flex-wrap gap-4 justify-center mt-5">
+          <% if @product.images.attached? %>
+            <% @product.images.each do |image| %>
+              <div class="card relative">
+                <img
+                  src="<%= url_for(image) %>"
+                  alt="Shoes"
+                  width="300px"
+                  height="300px"
+                  class="object-cover"
+                />
+                <%= button_to "Delete", destroy_image_admin_product_path(@product, image_id: image.id), method: :delete, class:"btn btn-secondary absolute top-0" %>
+              </div>
+            <% end %>
+          <% else %>
+            <p>No images available</p>
+          <% end %>
         </div>
       </div>
     </div>
   </section>
 
   <section id="product-variants">
-    <div tabindex="0" class="collapse collapse-open border-base-300 bg-base-100 border border-2 rounded-lg shadow-md">
-      <div class="collapse-title text-xl font-medium">Product Variants</div>
+    <div tabindex="0" class="collapse collapse-open border-base-300 bg-base-100 border border-1 rounded-lg shadow-md">
+      <div class="collapse-title text-xl font-medium">
+        <i class="fas fa-tags"></i>
+        Variants
+      </div>
       <div class="collapse-content">
-        <p></p>
       </div>
     </div>
   </section>

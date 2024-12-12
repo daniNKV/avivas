@@ -19,6 +19,8 @@ Rails.application.routes.draw do
         patch :update_stock
         post :publish
         post :hide
+        get :add_images
+        delete :destroy_image
       end
     end
   end

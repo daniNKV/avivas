@@ -1,6 +1,6 @@
 class Admin::ProductsController < ApplicationController
   layout "admin"
-  before_action :set_admin_product, only: %i[ show edit update destroy update_stock publish hide ]
+  before_action :set_admin_product, only: %i[ show edit update destroy update_stock publish hide add_images destroy_image ]
   before_action :require_login
   # GET /admin/products or /admin/products.json
   def index
@@ -70,6 +70,30 @@ class Admin::ProductsController < ApplicationController
     end
   end
 
+  def add_images
+    if params[:images].present?
+      params[:images].each do |image|
+        @product.attachment.attach(image)
+      end
+      flash[:notice] = "Images uploaded successfully"
+      redirect_to admin_product_path(@product)
+    else
+      @product.errors.clear unless request.patch?
+      render partial: "admin/products/shared/image_form", locals: { product: @product }
+    end
+  end
+
+  def destroy_image
+    image = @product.images.find(params[:image_id])
+    if image.purge
+      flash[:notice] = "Image deleted successfully"
+      redirect_to admin_product_path(@product)
+    else
+      flash[:notice] = "Image could not be deleted"
+      redirect_to admin_product_path(@product)
+    end
+  end
+
   def publish
     if @product.update(published: true)
       flash[:notice] = "Product published successfully"
@@ -101,6 +125,7 @@ class Admin::ProductsController < ApplicationController
         :description,
         :base_price,
         :stock_quantity,
+        :image,
         images: [],
       )
     end
