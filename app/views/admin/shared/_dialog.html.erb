@@ -1,0 +1,10 @@
+<dialog id="<%= dialog_id %>" class="modal modal-bottom sm:modal-middle p-4 bg-base-100 border border-1 rounded-lg">
+  <div class="modal-box relative">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    <h3 class="text-lg font-bold"><%= title %></h3>
+    <%= yield %>
+
+  </div>
+</dialog>

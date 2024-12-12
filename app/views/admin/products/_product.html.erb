@@ -8,8 +8,8 @@
     <% if product.deleted %>
       <p>Deleted At: <span class="badge badge-lg badge-error"><%= product.deleted_at %></p>
     <% end %>
-    <p>Created at: <%= product.created_at %></p>
-    <p>Updated at: <%= product.updated_at %></p>
+    <p>Created at: <%= time_ago_in_words(product.created_at) %> ago</p>
+    <p>Updated at: <%= time_ago_in_words(product.updated_at) %> ago</p>
 
   </div>
 

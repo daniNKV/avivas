@@ -1,0 +1,25 @@
+<div id="<%= dom_id category %>" class="card bg-base-100 shadow-md p-4">
+  <div class="card-body">
+    <h2 class="card-title text-lg">
+      <%= category.name %>
+      <span class="badge <%= category.active? ? 'badge-primary' : 'badge-ghost' %> ml-2">
+        <%= category.active? ? 'Published' : 'Draft' %>
+      </span>
+    </h2>
+    <div class="text-sm text-gray-500 mt-2">
+      <p>Created: <%= time_ago_in_words(category.created_at) %> ago</p>
+      <p>Updated: <%= time_ago_in_words(category.updated_at) %> ago</p>
+    </div>
+    <p class="text-gray-700 mt-4">
+      <%= category.description %>
+    </p>
+    <div class="card-actions justify-center mt-4">
+      <button class="btn btn-sm btn-error text-white">
+        <i class="fa fa-trash mr-2"></i>Delete
+      </button>
+      <%= link_to edit_admin_products_category_path(category), class:"btn btn-sm btn-outline" do %>
+        <i class="fa fa-edit mr-2"></i>Edit
+      <% end %>
+    </div>
+  </div>
+</div>

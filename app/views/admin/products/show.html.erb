@@ -59,7 +59,9 @@
             <label>
               <i class="fas fa-boxes"></i>
               <span class="pr-2">Stock: <%= @product.stock_quantity %></span>
-              <%= link_to 'Modify', update_stock_admin_product_path(@product), class: "btn btn-outline rounded-lg" %>
+              <%= link_to update_stock_admin_product_path(@product), class: "btn btn-outline rounded-lg" do %>
+                Modify <i class="fas fa-pencil"></i>
+              <% end %>
             </label>
           <% end %>
           <% if @product.deleted %>
@@ -88,7 +90,10 @@
       </div>
       <div class="collapse-content flex flex-col items-center">
         <%= turbo_frame_tag dom_id(@product, :images), class: "w-full max-w-screen-md" do %>
-          <%= link_to "Add image", add_images_admin_product_path(@product), class: "btn btn-outline btn-sm rounded-lg w-full px-4" %>
+          <%= link_to add_images_admin_product_path(@product), class: "btn btn-outline btn-sm rounded-lg w-full px-4" do %>
+            Add image
+            <i class="fas fa-image"></i>
+          <% end %>
         <% end %>
         <div class="flex flex-wrap gap-4 justify-center mt-5">
           <% if @product.images.attached? %>

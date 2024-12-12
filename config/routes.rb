@@ -13,6 +13,9 @@ Rails.application.routes.draw do
         post :activate
       end
     end
+    namespace :products do
+      resources :categories, except: :show
+    end
     resources :products do
       member do
         get :update_stock

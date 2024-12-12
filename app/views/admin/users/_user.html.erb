@@ -30,12 +30,12 @@
   </p>
 
   <p class="p-2">
-    <strong class="block font-medium mb-1">Joined at:</strong>
-    <%= user.created_at %>
+    <strong class="block font-medium mb-1">Created at:</strong>
+    <%= time_ago_in_words(user.created_at) %> ago
   </p>
 
   <p class="p-2">
     <strong class="block font-medium mb-1">Joined at:</strong>
-    <%= user.updated_at %>
+    <%= time_ago_in_words(user.updated_at)%> ago
   </p>
 </div>

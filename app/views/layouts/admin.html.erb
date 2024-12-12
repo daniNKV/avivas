@@ -30,11 +30,19 @@
             <%= link_to admin_users_path do %>
               <i class="fas fa-users"></i> Users
             <% end %>
+            <ul>
+              <li><a>Deleted</a></li>
+              <li><a>Blocked</a></li>
+            </ul>
           </li>
           <li>
             <%= link_to admin_products_path do %>
               <i class="fas fa-box"></i> Products
             <% end %>
+            <ul>
+              <li><%= link_to "Categories", admin_products_categories_path %></li>
+              <li><a>Collections</a></li>
+            </ul>
           </li>
           <li>
             <a>
