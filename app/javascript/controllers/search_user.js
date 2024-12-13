@@ -13,7 +13,6 @@ export default class SearchUser extends Controller {
 
     search(event) {
         clearTimeout(this.debounceTimer)
-        console.log(this.searchInputTarget.value)
         const query = this.searchInputTarget.value
         if (query.length >= 2) {
             this.debounceTimer = setTimeout(() => {
@@ -55,7 +54,6 @@ export default class SearchUser extends Controller {
         this.clearResults()
     }
 
-    // Method to clear search results
     clearResults() {
         this.resultsTarget.innerHTML = ''
     }

@@ -1,9 +1,9 @@
-<%= form_with(model: [:admin, invoice], class: "contents") do |form| %>
+<%= form_with(model: [:admin, invoice], class: "contents max-w-screen-lg") do |form| %>
   <div
     data-controller="search-user"
-    class="form-control w-full mb-4"
+    class="form-control w-full"
   >
-    <%= form.label :user_id, "Select User", class: "label" %>
+    <%= form.label :user_id, "Select user involved", class: "label" %>
 
     <div class="relative">
       <div class="w-full">
@@ -17,7 +17,6 @@
                            }
         %>
       </div>
-
       <div
         id="user_results"
         data-search-user-target="results"
@@ -25,31 +24,60 @@
       >
       </div>
 
-      <%= form.hidden_field :user_id, id: "selected_user_id", data: { search_user_target: "selectedUserId" }
-      %>
+      <%= form.hidden_field :user_id, id: "selected_user_id", data: { search_user_target: "selectedUserId" }%>
     </div>
   </div>
+  <div class="form-control">
+    <%= form.label :transaction_date, class: "label" %>
+    <%= form.datetime_local_field :transaction_date, value: @invoice.transaction_date, class: "input input-bordered" %>
+  </div>
+  <div class="form-control col-span-2">
+    <%= form.label :notes, class: "label" %>
+    <%= form.text_area :notes, rows: 5, class: "input input-bordered" %>
+  </div>
+  <div
+    data-controller="search-products"
+    class="form-control w-full mb-4"
+  >
+    <%= label_tag :search_products, "Add Products", class: "label" %>
 
+    <div class="relative">
+      <%= text_field_tag :search_products,
+                         nil,
+                         placeholder: "Search products...",
+                         class: "input input-bordered w-full",
+                         data: {
+                           action: "input->search-products#search",
+                           search_products_target: "searchInput"
+                         }
+      %>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div class="form-control">
-      <%= form.label :total_price, class: "label" %>
-      <%= form.number_field :total_price, step: 0.01, value: @invoice.total_price, class: "input input-bordered" %>
+      <div
+        id="product_results"
+        data-search-products-target="results"
+        class="z-10 w-full mt-1 max-h-60 overflow-y-auto"
+      >
+        <!-- Dynamic product search results -->
+      </div>
     </div>
 
-    <div class="form-control">
-      <%= form.label :discount, class: "label" %>
-      <%= form.number_field :discount, step: 0.01, value: @invoice.discount, class: "input input-bordered" %>
+    <div
+      id="selected-products"
+      class="py-4"
+    >
+      <!-- Dynamically added selected products will appear here -->
     </div>
 
-    <div class="form-control">
-      <%= form.label :transaction_date, class: "label" %>
-      <%= form.datetime_local_field :transaction_date, value: @invoice.transaction_date, class: "input input-bordered" %>
-    </div>
 
-    <div class="form-control col-span-2">
-      <%= form.label :notes, class: "label" %>
-      <%= form.text_area :notes, rows: 5, class: "input input-bordered" %>
+    <div class="flex justify-between mt-4">
+      <span class="font-bold">Total:</span>
+      <span class="font-bold text-lg">
+        <%= form.number_field :total_price,
+                               class: "input input-bordered w-full",
+                              id: 'invoice-total-price',
+                              value: 0
+        %>
+      </span>
     </div>
   </div>
 

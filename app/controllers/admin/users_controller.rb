@@ -113,7 +113,7 @@ class Admin::UsersController < ApplicationController
     def set_user
       @user = User.find(params.expect(:id))
     end
-  
+
 
     # Only allow a list of trusted parameters through.
     def user_params

@@ -119,6 +119,16 @@ class Admin::ProductsController < ApplicationController
     end
   end
 
+  def search
+    @products = Product.by_name_or_description(params[:query])
+    @products = @products.where(deleted: false).limit(5)
+
+    render(
+      partial: "admin/products/shared/search_results",
+      formats: [ :turbo_stream ]
+    )
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_admin_product

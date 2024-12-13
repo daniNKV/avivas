@@ -13,5 +13,6 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 pin "theme-change" # @2.5.0
 pin "theme", to: "theme.js"
 pin "controllers/search_user", to: "controllers/search_user.js"
+pin "controllers/search_products", to: "controllers/search_products.js"
 
 

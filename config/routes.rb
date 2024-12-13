@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     patch "profiles/update"
     get "profiles/:username", to: "profiles#show", as: "public_profile"
     get "users/search", to: "users#search"
+    get "products/search", to: "products#search"
     resources :invoices, except: [ :edit, :update ]
     resources :users do
       member do

@@ -1,0 +1,31 @@
+<div class="bg-base-100 shadow-md mt-4">
+  <% if @products.any? %>
+    <ul class="menu bg-base-100 rounded-lg">
+      <% @products.each do |product| %>
+        <li class="hover:bg-base-700">
+          <a
+            data-action="click->search-products#selectProduct"
+            data-product-id="<%= product.id %>"
+            data-product-name="<%= product.name %>"
+            data-product-price="<%= product.base_price %>"
+            class="flex justify-between items-center p-3"
+          >
+            <span>
+              <div class="avatar">
+                <div class="mask mask-squircle w-12">
+                  <%= image_tag product.product_image_url %>
+                </div>
+              </div>
+            </span>
+            <span class="font-medium"><%= product.name %></span>
+            <span class="text-gray-500 text-sm">$<%= product.base_price %></span>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="p-4 text-center text-gray-500">
+      <p>No products found</p>
+    </div>
+  <% end %>
+</div>
