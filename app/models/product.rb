@@ -5,6 +5,8 @@ class Product < ApplicationRecord
                           join_table: "product_categories_products",
                           foreign_key: :product_id,
                           association_foreign_key: :product_category_id
+  has_many :items
+  has_many :invoices, through: :items
 
   validates :name, presence: true, length: { maximum: 255 }
   validates :color, length: { maximum: 50 }
@@ -19,6 +21,10 @@ class Product < ApplicationRecord
 
   def published?
     self.published
+  end
+
+  def total_units_sold
+    items.sum(:units)
   end
 
   def product_image_url

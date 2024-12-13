@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_10_055132) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_13_024140) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -37,6 +37,25 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_10_055132) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "invoice_items", force: :cascade do |t|
+    t.integer "invoice_id", null: false
+    t.integer "product_id", null: false
+    t.decimal "price"
+    t.integer "units"
+    t.decimal "discount"
+    t.index ["invoice_id"], name: "index_invoice_items_on_invoice_id"
+    t.index ["product_id"], name: "index_invoice_items_on_product_id"
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.decimal "total_price"
+    t.decimal "discount"
+    t.datetime "transaction_date"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "product_categories", force: :cascade do |t|
@@ -104,4 +123,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_10_055132) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "invoice_items", "invoices"
+  add_foreign_key "invoice_items", "products"
 end

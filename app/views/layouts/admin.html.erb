@@ -41,13 +41,13 @@
             <% end %>
             <ul>
               <li><%= link_to "Categories", admin_products_categories_path %></li>
-              <li><a>Collections</a></li>
+<!--              <li><a>Collections</a></li>-->
             </ul>
           </li>
           <li>
-            <a>
-              <i class="fas fa-file-invoice"></i> Invoices
-            </a>
+            <%= link_to admin_invoices_path do %>
+              <i class="fas fa-money-bill"></i> Invoices
+            <% end %>
           </li>
         <% end %>
       </ul>

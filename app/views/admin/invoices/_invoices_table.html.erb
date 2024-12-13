@@ -1,0 +1,32 @@
+<table class="table">
+  <!-- head -->
+  <thead>
+  <tr>
+    <th></th>
+    <th>Made by</th>
+    <th>Total Amount</th>
+    <th>Total Items</th>
+    <th>Made at</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @invoices.each do |product| %>
+
+    <%= render partial: "invoice_row", locals: { product: product } %>
+
+  <% end %>
+  </tbody>
+  <!-- foot -->
+  <tfoot>
+  <tr>
+    <th></th>
+    <th>Made by</th>
+    <th>Total Amount</th>
+    <th>Total Items</th>
+    <th>Made at</th>
+    <th></th>
+  </tr>
+  </tfoot>
+</table>
+

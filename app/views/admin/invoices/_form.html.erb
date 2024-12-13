@@ -1,0 +1,39 @@
+<%= form_with(model: [:admin, invoice], class: "contents") do |form| %>
+  <% if invoice.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
+
+      <ul>
+        <% invoice.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="form-control">
+      <%= form.label :total_price, class: "label" %>
+      <%= form.number_field :total_price, step: 0.01, value: @invoice.total_price, class: "input input-bordered" %>
+    </div>
+
+    <div class="form-control">
+      <%= form.label :discount, class: "label" %>
+      <%= form.number_field :discount, step: 0.01, value: @invoice.discount, class: "input input-bordered" %>
+    </div>
+
+    <div class="form-control">
+      <%= form.label :transaction_date, class: "label" %>
+      <%= form.datetime_local_field :transaction_date, value: @invoice.transaction_date, class: "input input-bordered" %>
+    </div>
+
+    <div class="form-control col-span-2">
+      <%= form.label :notes, class: "label" %>
+      <%= form.text_area :notes, rows: 5, class: "input input-bordered" %>
+    </div>
+  </div>
+
+  <div class="flex justify-end mt-4">
+    <%= form.submit "Save Invoice", class: "btn btn-outline btn-wide rounded-lg w-full" %>
+  </div>
+<% end %>
