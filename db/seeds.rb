@@ -15,7 +15,7 @@ require 'faker'
 puts "Deleting current users"
 User.delete_all
 
-# Seed with new data
+puts "Creating users..."
 40.times do
   generated_phone = "+1#{Faker::Number.number(digits: 10)}"
   User.create!(
@@ -32,17 +32,92 @@ User.delete_all
   )
 end
 
+puts "Creating demo users..."
 User.create!(
   username: "admin",
   password: "admin-password",
   email: "admin@email.com",
   phone:  "+1#{Faker::Number.number(digits: 10)}",
   bio: Faker::Lorem.paragraph,
-  first_name: "Avivas",
-  last_name: "Administrator",
+  first_name: "Administrator",
+  last_name: "Avivas",
   role: 3,
   status: 0,
   joined_at: Faker::Date.backward(days: 365 * 5)
 )
+User.create!(
+  username: "manager",
+  password: "manager-password",
+  email: "manager@email.com",
+  phone:  "+1#{Faker::Number.number(digits: 10)}",
+  bio: Faker::Lorem.paragraph,
+  first_name: "Manager",
+  last_name: "Avivas",
+  role: 2,
+  status: 0,
+  joined_at: Faker::Date.backward(days: 365 * 5)
+)
+User.create!(
+  username: "employee",
+  password: "employee-password",
+  email: "employee@email.com",
+  phone:  "+1#{Faker::Number.number(digits: 10)}",
+  bio: Faker::Lorem.paragraph,
+  first_name: "Employee",
+  last_name: "Avivas",
+  role: 1,
+  status: 0,
+  joined_at: Faker::Date.backward(days: 365 * 5)
+)
 
+puts "Deleting current products..."
+
+puts "Seeding products..."
+Product.delete_all
+
+40.times do
+  Product.create!(
+    name: Faker::Commerce.product_name,
+    description: Faker::Lorem.paragraph(sentence_count: 3),
+    base_price: Faker::Commerce.price(range: 10.0..100.0).round(2),
+    stock_quantity: Faker::Number.between(from: 1, to: 100),
+    published: [true, false].sample,
+    deleted: false,
+    deleted_at: nil
+  )
+end
+
+puts "Deleting current categories"
+Product::Category.delete_all
+categories = Set.new([
+                       "Tops",
+                       "Bottoms",
+                       "Activewear",
+                       "Footwear",
+                       "Accessories",
+                       "Loungewear & Sleepwear",
+                       "Outerwear & Jackets",
+                       "Hats & Headwear",
+                       "Bags & Backpacks",
+                       "Socks & Hosiery",
+                       "Jewelry & Watches",
+                       "Sale & Clearance",
+                       "Swimwear"
+                     ])
+puts "Seeding categories..."
+
+categories.each do |category|
+  Product::Category.create!(
+    name: category,
+    description: Faker::Marketing.buzzwords.capitalize + " styles for every occasion.",
+    active: true
+  )
+end
+
+puts "Seeding complete! ✔"
+puts "Cleaning up..."
 puts "Created #{User.count} users"
+puts "Created #{Product.count} products"
+puts "Created #{Product::Category.count} product categories"
+
+puts "Done!"

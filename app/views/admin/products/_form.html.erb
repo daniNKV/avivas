@@ -1,0 +1,61 @@
+
+<%= form_with(model: [:admin, product], class: "form-control gap-2 w-full") do |form| %>
+  <% if product.errors.any? %>
+    <div id="error_explanation" class="flex flex-col items-center alert alert-error px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(product.errors.count, "error") %> prohibited this admin_product from being saved:</h2>
+
+      <ul>
+        <% product.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-control w-full">
+    <%= form.label :name, class: "label" %>
+
+    <%= form.text_field :name, class: "input input-bordered w-full" %>
+  </div>
+
+  <div class="form-control w-full">
+    <%= form.label :description, class: "label" %>
+
+    <%= form.text_area :description, rows: 4, class: "textarea textarea-bordered w-full" %>
+  </div>
+
+  <div class="form-control w-full">
+    <%= form.label :color, class: "label" %>
+
+    <%= form.text_field :color, class: "input input-bordered w-full", placeholder: "White" %>
+  </div>
+
+  <div class="form-control w-full">
+    <%= form.label :sizes_available, class: "label" %>
+
+    <%= form.text_field :sizes_available, class: "input input-bordered w-full", placeholder: "XS S M L"%>
+  </div>
+
+  <div class="form-control w-full">
+    <%= form.label :base_price, class: "label" %>
+
+    <%= form.number_field :base_price, step: 0.5, class: "input input-bordered w-full" %>
+  </div>
+  <div class="form-control">
+    <label for="categories" class="label">Categories</label>
+    <%= form.collection_select :categories, Product::Category.all, :id, :name,  class:"select select-bordered w-full max-w-xs text-black", multiple: true %>
+  </div>
+  <div class="form-control w-full">
+    <%= form.label :stock_quantity, class: "label" %>
+
+    <%= form.number_field :stock_quantity, class: "input input-bordered w-full" %>
+  </div>
+  <div class="form-control w-full">
+    <%= form.label :images, class: "label" %>
+    <%= form.file_field :images, multiple: true, accept: 'image/png,image/jpeg,image/jpg', class: "file-input file-input-bordered w-full" %>
+  </div>
+
+  <div class="form-control mt-4">
+    <%= form.submit class: "btn btn-outline" %>
+  </div>
+
+<% end %>

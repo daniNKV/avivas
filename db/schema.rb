@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_09_040434) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_10_055132) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -37,6 +37,48 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_09_040434) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "product_categories", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "product_categories_products", id: false, force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.integer "product_category_id", null: false
+    t.index ["product_category_id", "product_id"], name: "idx_on_product_category_id_product_id_468b5d9f0b"
+    t.index ["product_id", "product_category_id"], name: "idx_on_product_id_product_category_id_1b9a8c7d07"
+  end
+
+  create_table "product_collections", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "product_collections_products", id: false, force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.integer "product_collection_id", null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.decimal "base_price", default: "0.0"
+    t.string "color"
+    t.string "sizes_available"
+    t.integer "stock_quantity", default: 0
+    t.boolean "published", default: true
+    t.boolean "deleted", default: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

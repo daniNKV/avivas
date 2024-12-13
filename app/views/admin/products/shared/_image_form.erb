@@ -1,0 +1,22 @@
+<%= turbo_frame_tag dom_id(@product, :images) do %>
+  <%= form_with model: [:admin, @product], class: "w-full" do | f |%>
+    <% if f.object.errors.any? %>
+      <% f.object.errors.full_messages.each do |error| %>
+        <p class="py-1"><%= error %></p>
+      <% end %>
+    <% end %>
+    <div class="flex w-full grow py-4">
+      <%= f.file_field :images,
+                       multiple: true,
+                       accept: 'image/png,image/jpeg,image/jpg',
+                       class: "file-input file-input-bordered w-full",
+                        include_hidden: false
+      %>
+      <div class="flex">
+        <%= link_to 'Cancel', admin_product_path(@product), class: "btn btn-ghost"%>
+      </div>
+    </div>
+    <%= f.submit 'Save', class: "btn btn-outline w-full" %>
+
+  <% end %>
+<% end %>

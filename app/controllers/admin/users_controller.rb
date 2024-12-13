@@ -1,13 +1,12 @@
 class Admin::UsersController < ApplicationController
+  require "faker"
   layout "admin"
   before_action :set_user, only: %i[ show edit update destroy ]
   before_action :require_login
-  require "faker"
 
   # GET /admin/users or /admin/users.json
   def index
     @users = User.all
-    puts @users.count
     @users = @users.by_name_or_email(params[:query]) if params[:query].present?
     @users = @users.by_role(params[:role]) if params[:role].present?
     @users = @users.by_status(params[:status]) if params[:status].present?
@@ -15,7 +14,7 @@ class Admin::UsersController < ApplicationController
     if params[:order].present?
       @query = @query.order(params[:order])
     end
-    puts @users.count
+
     @total_users_count = User.count
     @filtered_users_count = @users.count
 

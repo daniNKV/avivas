@@ -1,0 +1,11 @@
+<div class="mx-auto md:w-2/3 w-full">
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Editing category</h1>
+    <%= link_to admin_products_categories_path, class: "btn btn-ghost" do %>
+      <i class="fas fa-arrow-left"></i> Back to categories
+    <% end %>
+  </div>
+
+  <%= render "form", product_category: @product_category %>
+
+</div>

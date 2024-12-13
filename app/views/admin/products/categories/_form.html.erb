@@ -1,0 +1,35 @@
+<%= form_with(model: [:admin, :products, @product_category],
+              url: @product_category.persisted? ? admin_products_category_path(@product_category) : admin_products_categories_path,
+              method: @product_category.persisted? ? :patch : :post,
+              class: "contents max-w-md mx-auto p-4 flex flex-col gap-4") do |form| %>
+
+  <% if @product_category.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(@product_category.errors.count, "error") %> prohibited this product_category from being saved:</h2>
+      <ul>
+        <% @product_category.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-control space-y-2">
+    <%= form.label :name, class: "label font-bold" %>
+    <%= form.text_field :name, placeholder: "Enter category name", class: "input input-bordered w-full" %>
+  </div>
+
+  <div class="form-control space-y-2">
+    <%= form.label :description, class: "label font-bold" %>
+    <%= form.text_area :description, placeholder: "Enter category description", class: "textarea textarea-bordered w-full" %>
+  </div>
+
+  <div class="form-control space-y-2">
+    <label class="label cursor-pointer flex">
+      <span class="label-text ml-2 grow">Active</span>
+      <%= form.check_box :active, class: "checkbox checkbox-primary" %>
+    </label>
+  </div>
+  <div class="inline">
+    <%= form.submit class: "btn btn-outline w-full" %>
+  </div>
+<% end %>

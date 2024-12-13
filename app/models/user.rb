@@ -11,6 +11,7 @@ class User < ApplicationRecord
     where("LOWER(first_name) LIKE :search OR LOWER(username) LIKE :search OR LOWER(last_name) LIKE :search OR LOWER(email) LIKE :search",
           search: "%#{query.downcase}%")
   }
+
   scope :by_role, ->(role) {
     where(role: role)
   }

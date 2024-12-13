@@ -20,6 +20,9 @@
             </p>
           </div>
           <div class="card-body p-6">
+            <div class="alert alert-info w-full">
+              <%= render "admin/shared/notifications" %>
+            </div>
             <%= yield %>
           </div>
         </div>

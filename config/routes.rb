@@ -13,6 +13,19 @@ Rails.application.routes.draw do
         post :activate
       end
     end
+    namespace :products do
+      resources :categories, except: :show
+    end
+    resources :products do
+      member do
+        get :update_stock
+        patch :update_stock
+        post :publish
+        post :hide
+        get :add_images
+        delete :destroy_image
+      end
+    end
   end
 
   resources :passwords, controller: "clearance/passwords", only: [ :create, :new ]

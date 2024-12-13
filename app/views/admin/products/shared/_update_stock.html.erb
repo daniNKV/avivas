@@ -1,0 +1,16 @@
+<%= turbo_frame_tag @product do %>
+  <%= form_with model: [:admin, @product], class: "" do | f |%>
+    <% if f.object.errors.any? %>
+      <% f.object.errors.full_messages.each do |error| %>
+        <p class="py-1"><%= error %></p>
+      <% end %>
+    <% end %>
+    <div class=" flex flex-col gap-2">
+      <%= f.number_field :stock_quantity, class: "input input-bordered w-full", placeholder: "Enter the new stock"%>
+      <div class="flex">
+        <%= link_to 'Cancel', admin_product_path(@product), class: "btn btn-ghost"%>
+        <%= f.submit 'Save', class: "btn btn-outline grow" %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,146 @@
+<% content_for :title, "Showing Product" %>
+
+<section class="flex flex-col gap-4 mx-auto">
+  <header class="flex justify-between">
+    <h1 class="font-bold text-xl md:text-4xl">
+      <i class="fas fa-eye pr-2"></i>
+      <%= @product.name %></h1>
+    <%= link_to admin_products_path, class: "btn btn-ghost" do %>
+      <i class="fas fa-arrow-left"></i> Back to products
+    <% end %>
+  </header>
+
+  <article id="actions" class="">
+    <details class="collapse bg-base-100 collapse-arrow border-2 border-base-300 rounded-lg shadow-md">
+      <summary class="collapse-title font-medium">
+        <i class="fa-solid fa-wand-magic-sparkles mr-1 text-xl"></i>
+        Actions
+      </summary>
+      <div class="collapse-content">
+        <div class="flex flex-wrap gap-2 justify-evenly">
+          <%= button_to [:admin, @product], method: :delete, class: "btn btn-outline btn-lg lg:btn-wide" do %>
+            <i class="fas fa-trash-alt"></i> Destroy
+          <% end %>
+          <% if @product.published? %>
+            <%= button_to hide_admin_product_path(@product), method: :post, class: "btn btn-outline btn-lg lg:btn-wide" do %>
+              <i class="fas fa-cloud-upload-alt"></i>
+              Hide
+            <% end %>
+          <% else %>
+            <%= button_to publish_admin_product_path(@product), method: :post, class: "btn btn-outline btn-lg lg:btn-wide" do %>
+              <i class="fas fa-paper-plane"></i>
+              Publish
+            <% end %>
+          <% end %>
+          <%= link_to edit_admin_product_path(@product), class: "btn btn-outline btn-lg lg:btn-wide" do %>
+            <i class="fas fa-edit"></i> Update
+          <% end %>
+        </div>
+      </div>
+    </details>
+  </article>
+
+  <section id="product-information" class="w-full mt-4 indicator">
+    <p class="indicator-item indicator-center mx-auto font-bold text-xl badge badge-xl badge-primary p-4 rounded-lg">
+      Status: <%= humanize_published @product.published? %>
+    </p>
+    <div class="card md:card-side bg-base-100 shadow-xl mx-auto">
+      <%= image_tag @product.product_image_url, size: 300, class: "max-w-md object-cover" %>
+      <%#= render partial: "shared/carousel", locals: { images: @product.images, default_image: @product.product_image_url  } %>
+      <div class="card-body grow ">
+        <div class="flex flex-col gap-3">
+          <h2 class="card-title"><%= @product.name %></h2>
+          <p><%= @product.description %></p>
+          <p>
+            <i class="fas fa-dollar-sign"></i>
+            <strong>Price: </strong><%= number_to_currency(@product.base_price) %>
+          </p>
+          <%= turbo_frame_tag dom_id(@product) do %>
+            <label>
+              <i class="fas fa-boxes"></i>
+              <span class="pr-2"><strong>Stock: </strong> <%= @product.stock_quantity %></span>
+              <%= link_to update_stock_admin_product_path(@product), class: "btn btn-outline rounded-lg" do %>
+                Modify <i class="fas fa-pencil"></i>
+              <% end %>
+            </label>
+          <% end %>
+          <p>
+            <strong>Color: </strong><%= @product.color.blank? ? "Not specified" : @product.color %>
+          </p>
+          <p>
+            <strong>Sizes available: </strong><%= @product.sizes_available.blank? ? "Not specified" : @product.sizes_available %>
+          </p>
+          <ul class="flex flex-wrap gap-2">
+            <strong>Categories: </strong>
+            <% if @product.categories.count > 0 %>
+              <% @product.categories.each do |category| %>
+                <li><%= category.name %>, </li>
+              <% end %>
+            <% else %>
+              <p> Unassigned</p>
+            <% end %>
+          </ul>
+          <% if @product.deleted %>
+            <p>Deleted At: <span class="badge badge-lg badge-error"><%= @product.deleted_at %></p>
+          <% end %>
+        </div>
+        <div class="card-actions justify-end">
+          <p>
+            <i class="fas fa-history"></i>
+            Created <%=  time_ago_in_words(@product.created_at) %> ago
+          </p>
+          <p>
+            <i class="fas fa-sync"></i>
+            Last update <%= time_ago_in_words(@product.updated_at) %> ago</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="product-images">
+    <div tabindex="0" class="collapse collapse-open collapse-plus border-base-300 bg-base-100 border border-1 rounded-lg shadow-md">
+      <div class="collapse-title text-xl font-medium">
+        <i class="fas fa-photo-film"></i>
+        Images
+        <%= @product.images.count %>
+      </div>
+      <div class="collapse-content flex flex-col items-center">
+        <%= turbo_frame_tag dom_id(@product, :images), class: "w-full max-w-screen-md" do %>
+          <%= link_to add_images_admin_product_path(@product), class: "btn btn-outline btn-sm rounded-lg w-full px-4" do %>
+            Add image
+            <i class="fas fa-image"></i>
+          <% end %>
+        <% end %>
+        <div class="flex flex-wrap gap-4 justify-center mt-5">
+          <% if @product.images.attached? %>
+            <% @product.images.each do |image| %>
+              <div class="card relative">
+                <img
+                  src="<%= url_for(image) %>"
+                  alt="Shoes"
+                  width="300px"
+                  height="300px"
+                  class="object-cover"
+                />
+                <%= button_to "Delete", destroy_image_admin_product_path(@product, image_id: image.id), method: :delete, class:"btn btn-secondary absolute top-0" %>
+              </div>
+            <% end %>
+          <% else %>
+            <p>No images available</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!--  <section id="product-variants">-->
+<!--    <div tabindex="0" class="collapse collapse-open border-base-300 bg-base-100 border border-1 rounded-lg shadow-md">-->
+<!--      <div class="collapse-title text-xl font-medium">-->
+<!--        <i class="fas fa-tags"></i>-->
+<!--        Variants-->
+<!--      </div>-->
+<!--      <div class="collapse-content">-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </section>-->
+</section>
