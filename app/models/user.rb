@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :invoices
   before_save :normalize_phone_number
 
+
   enum :role, [ :member, :employee, :manager, :admin ], suffix: true
 
   enum :status, [ :active, :inactive, :blocked ], suffix: true

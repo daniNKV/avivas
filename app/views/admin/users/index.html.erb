@@ -14,22 +14,43 @@
   <article id="users-stats" class="flex justify-between items-center max-w-screen-2xl py-4 ">
     <div class="stats stats-vertical sm:stats-horizontal mx-auto shadow w-full">
       <div class="stat place-items-center">
-        <div class="stat-title">Downloads</div>
-        <div class="stat-value">31K</div>
-        <div class="stat-desc">Jan 1st - Feb 1st</div>
+        <div class="stat-title">Total users</div>
+        <%= render 'shared/animated_number',
+                   message: @total_users_count,
+                   start_value: 0,
+                   end_value: @total_users_count,
+                   classes: "stat-value"
+        %>
+        <div class="stat-desc">All time</div>
+      </div>
+
+      <div class="stat place-items-center">
+        <div class="stat-title">Active Users</div>
+        <%= render 'shared/animated_number',
+                   message: @total_users_active,
+                   start_value: 0,
+                   end_value: @total_users_active,
+                   classes: "stat-value"
+        %>
+        <div class="stat-desc"></div>
       </div>
 
       <div class="stat place-items-center">
         <div class="stat-title">New Users</div>
-        <div class="stat-value">4,200</div>
-        <div class="stat-desc">↗︎ 400 (22%)</div>
+        <%= render 'shared/animated_number',
+                   message: @total_users_last_month,
+                   start_value: 0,
+                   end_value: @total_users_last_month,
+                   classes: "stat-value"
+        %>
+        <div class="stat-desc">Last month</div>
       </div>
 
-      <div class="stat place-items-center">
-        <div class="stat-title">New Registers</div>
-        <div class="stat-value">1,200</div>
-        <div class="stat-desc">↘︎ 90 (14%)</div>
-      </div>
+
+
+
+
+
     </div>
   </article>
 
@@ -39,9 +60,11 @@
                          params[:query],
                          placeholder: "Search users...",
                          class: "input input-bordered w-full" %>
+      <%= select_tag :status, options_for_select(User.statuses.keys.map { |status| [status.titleize, status] }),
+                     class: 'select select-bordered  max-w-xs' %>
 
       <%= submit_tag "Search",
-                     class: "btn btn-outline w-full md:btn-wide" %>
+                     class: "btn btn-outline w-full lg:btn-wide" %>
 
       <%= link_to "Reset",
                   admin_users_path,

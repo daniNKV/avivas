@@ -16,3 +16,4 @@ pin "controllers/search_user", to: "controllers/search_user.js"
 pin "controllers/search_products", to: "controllers/search_products.js"
 
 
+pin "@stimulus-components/animated-number", to: "@stimulus-components--animated-number.js" # @5.0.0

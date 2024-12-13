@@ -18,9 +18,9 @@
       </summary>
       <div class="collapse-content">
         <div class="flex flex-wrap gap-2 justify-evenly">
-          <%= button_to [:admin, @user], method: :delete, class: "btn btn-outline btn-lg lg:btn-wide" do %>
-            <i class="fas fa-trash-alt"></i> Destroy
-          <% end %>
+          <%#= button_to [:admin, @user], method: :delete, class: "btn btn-outline btn-lg lg:btn-wide" do %>
+<!--            <i class="fas fa-trash-alt"></i> Destroy-->
+          <%# end %>
           <% if @user.active_status? || @user.inactive_status? %>
             <%= button_to block_admin_user_path(@user), method: :post, class: "btn btn-outline btn-lg lg:btn-wide" do %>
               <i class="fas fa-ban"></i>

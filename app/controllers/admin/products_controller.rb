@@ -6,7 +6,11 @@ class Admin::ProductsController < ApplicationController
   def index
     @products = Product.all
     @products= @products.by_name_or_description(params[:query]) if params[:query].present?
+    @products = @products.deleted_ones(params[:deleted]) if params[:deleted].present?
 
+    @total_products_count = Product.all.count
+    @total_products_published = Product.published_count
+    @total_products_deleted = Product.deleted_count
     @pagy, @products = pagy(@products)
   end
 
@@ -60,10 +64,10 @@ class Admin::ProductsController < ApplicationController
 
   # DELETE /admin/products/1 or /admin/products/1.json
   def destroy
-    @product.destroy!
+    @product.delete
 
     respond_to do |format|
-      format.html { redirect_to admin_products_path, status: :see_other, notice: "Product was successfully destroyed." }
+      format.html { redirect_to admin_products_path, status: :see_other, notice: "Product was successfully deleted." }
       format.json { head :no_content }
     end
   end

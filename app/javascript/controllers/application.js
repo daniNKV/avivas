@@ -5,6 +5,7 @@ import RailsNestedForm from '@stimulus-components/rails-nested-form'
 import Notification from '@stimulus-components/notification'
 import SearchUser from "controllers/search_user";
 import SearchProducts from 'controllers/search_products'
+import AnimatedNumber from '@stimulus-components/animated-number'
 const application = Application.start()
 
 application.register('password-visibility', PasswordVisibility)
@@ -14,6 +15,7 @@ application.register('nested-form', RailsNestedForm)
 application.register('notification', Notification)
 application.register('search-user', SearchUser)
 application.register('search-products', SearchProducts)
+application.register('animated-number', AnimatedNumber)
 
 // Configure Stimulus development experience
 application.debug = false

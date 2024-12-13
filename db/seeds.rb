@@ -27,7 +27,7 @@ puts "Creating users..."
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     role: Faker::Number.between(from: 0, to: 2),
-    status: Faker::Number.between(from: 0, to: 1),
+    status: 0,
     joined_at: Faker::Date.backward(days: 365 * 5)
   )
 end

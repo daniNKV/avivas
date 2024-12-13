@@ -18,13 +18,23 @@ class Product < ApplicationRecord
   scope :by_name_or_description, ->(query) { where("lower(name) LIKE :search OR lower(description) LIKE :search",
                                              search: "%#{query.downcase}%")
   }
-
+  scope :deleted_ones, ->(flag) { where(deleted: flag) }
+  scope :deleted_count, -> { where(deleted_at: nil).count }
+  scope :published_count, -> { where(published: true).count }
   def published?
     self.published
   end
 
   def total_units_sold
     items.sum(:units)
+  end
+
+  def delete
+    self.deleted = true
+    self.deleted_at = Time.zone.now
+    self.published = false
+    self.stock_quantity = 0
+    self.save
   end
 
   def product_image_url
