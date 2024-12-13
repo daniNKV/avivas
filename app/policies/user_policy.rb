@@ -14,6 +14,7 @@ class UserPolicy < ApplicationPolicy
   def destroy?; update?; end
   def block?; update?; end
   def activate?; update?; end
+  def search?; index?; end
 
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!

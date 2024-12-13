@@ -78,13 +78,12 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
-  def admin?; role == :admin; end
-  def manager?; role == :manager; end
-  def employee?; role == :employee; end
-  def blocked?; status == :blocked; end
-  def active?; status == :active; end
-  def inactive?; status == :inactive; end
-
+  def admin?; admin_role?; end
+  def manager?; manager_role?; end
+  def employee?; employee_role?; end
+  def blocked?; blocked_status?; end
+  def active?; active_status?; end
+  def inactive?; inactive_status?; end
   def avatar_url
     if avatar.attached?
       Rails.application.routes.url_helpers.rails_blob_path(avatar, only_path: true)

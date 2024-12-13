@@ -1,18 +1,21 @@
 <tr>
   <td>
-
-  </td>
-  <td>
-    <% invoice.transaction_date %>
-    <div>
-      <div class="font-bold"><%#= @invoice.transaction_date %></div>
-      <div class="text-sm opacity-50"></div>
+    <div class="flex items-center gap-3">
+      <div class="avatar">
+        <div class="mask mask-squircle h-12 w-12">
+          <%= image_tag invoice.user.avatar_url, alt: "#{invoice.user.username}'s avatar", class: "user-avatar" %>
+        </div>
+      </div>
+      <div>
+        <div class="font-bold"><%= invoice.user.full_name %></div>
+        <div class="text-sm opacity-50"><%= invoice.user.role.capitalize %></div>
+      </div>
     </div>
   </td>
+
   <td>
     <%= invoice.total_price %>
   </td>
-
   <td>
     <span class="badge badge-secondary p-4 rounded-lg badge-sm">
       <%= invoice.status %>
@@ -21,7 +24,7 @@
   <td>
     <%= invoice.transaction_date %>
   </td>
-  <th>
+  <td>
     <%= link_to "details", admin_invoice_path(invoice), class: "btn btn-ghost btn-md text-xs" %>
-  </th>
+  </td>
 </tr>
