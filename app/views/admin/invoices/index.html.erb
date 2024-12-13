@@ -51,7 +51,7 @@
     <div class="overflow-x-auto flex flex-col justify-center items-center pt-4">
 
       <%== pagy_nav(@pagy) %>
-      <%= render "invoices_table", locals: { invoices: @invoice } %>
+      <%= render "invoices_table", locals: { invoices: @invoices } %>
       <%== pagy_nav(@pagy) %>
 
     </div>

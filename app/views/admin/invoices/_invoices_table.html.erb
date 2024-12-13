@@ -5,15 +5,15 @@
     <th></th>
     <th>Made by</th>
     <th>Total Amount</th>
-    <th>Total Items</th>
+    <th>Status</th>
     <th>Made at</th>
     <th></th>
   </tr>
   </thead>
   <tbody>
-  <% @invoices.each do |product| %>
+  <% @invoices.each do |invoice| %>
 
-    <%= render partial: "invoice_row", locals: { product: product } %>
+    <%= render partial: "invoice_row", locals: { invoice: invoice } %>
 
   <% end %>
   </tbody>

@@ -4,7 +4,8 @@ export default class SearchUser extends Controller {
     static targets = [
         "searchInput",
         "results",
-        "selectedUserId"
+        "selectedUserId",
+        "selectedUserDisplay"
     ]
 
     connect() {
@@ -42,16 +43,16 @@ export default class SearchUser extends Controller {
     }
 
     selectUser(event) {
-        event.preventDefault()
+        event.preventDefault();
 
-        const userId = event.currentTarget.dataset.userId
-        const userName = event.currentTarget.dataset.userName
+        const userId = event.currentTarget.dataset.userId;
+        const userName = event.currentTarget.dataset.userName;
 
-        this.selectedUserIdTarget.value = userId
+        this.selectedUserIdTarget.value = userId;
+        this.searchInputTarget.value = userName;
+        this.selectedUserDisplayTarget.textContent = userName;
 
-        this.searchInputTarget.value = userName
-
-        this.clearResults()
+        this.clearResults();
     }
 
     clearResults() {

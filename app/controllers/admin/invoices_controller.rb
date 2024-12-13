@@ -6,7 +6,6 @@ class Admin::InvoicesController < ApplicationController
   # GET /admin/invoices or /admin/invoices.json
   def index
     @invoices = Invoice.all
-
     if params[:order].present?
       @query = @query.order(params[:order])
     end
@@ -29,28 +28,17 @@ class Admin::InvoicesController < ApplicationController
 
   # POST /admin/invoices or /admin/invoices.json
   def create
+    @user = User.find(params[:user_id]) if params[:user_id].present?
+    puts params[:user_id]
     @invoice = Invoice.new(invoice_params)
+    @invoice.user = params[:invoice][:user].to_i if params[:invoice][:user].present?
 
-    respond_to do |format|
-      if @invoice.save
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.replace("new_invoice", partial: "invoices/success"),
-            turbo_stream.remove("invoice_errors")
-          ]
-        end
-        format.html { redirect_to @invoice, notice: "Invoice created successfully." }
-      else
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.replace("invoice_errors",
-                                 partial: "shared/error_messages",
-                                 locals: { object: @invoice }
-            )
-          ]
-        end
-        format.html { render :new }
-      end
+    if @invoice.save
+      flash[:notice] = "Successfully created invoice."
+      redirect_to [:admin, @invoice]
+    else
+      flash[:notice] = "Unable to save invoice."
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -98,8 +86,13 @@ class Admin::InvoicesController < ApplicationController
     end
     def invoice_params
       params.require(:invoice).permit(
+        :transaction_date,
+        :notes,
+        :total_price,
+        :user,
         :user_id,
-        invoice_items_attributes: [ :id, :product_id, :quantity, :_destroy ]
+        items_attributes: [ :product_id, :units, :_destroy ],
+        products: {}
       )
     end
 end

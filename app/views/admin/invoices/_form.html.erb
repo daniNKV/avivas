@@ -23,6 +23,10 @@
         class=" z-10 w-full mt-1 max-h-60 overflow-y-auto"
       >
       </div>
+      <div id="selected_user_display" class="mt-2">
+        <strong>Selected User:</strong>
+        <span data-search-user-target="selectedUserDisplay"></span>
+      </div>
 
       <%= form.hidden_field :user_id, id: "selected_user_id", data: { search_user_target: "selectedUserId" }%>
     </div>
@@ -73,9 +77,12 @@
       <span class="font-bold">Total:</span>
       <span class="font-bold text-lg">
         <%= form.number_field :total_price,
-                               class: "input input-bordered w-full",
+                              class: "input input-bordered w-full",
                               id: 'invoice-total-price',
-                              value: 0
+                              value: 0,
+                              step: "0.01",
+                              min: "0",
+                              precision: 2
         %>
       </span>
     </div>

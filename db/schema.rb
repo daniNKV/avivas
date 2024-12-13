@@ -50,6 +50,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_13_024140) do
   end
 
   create_table "invoices", force: :cascade do |t|
+    t.integer "user_id"
     t.decimal "total_price"
     t.decimal "discount"
     t.datetime "transaction_date"
@@ -57,6 +58,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_13_024140) do
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_invoices_on_user_id"
   end
 
   create_table "product_categories", force: :cascade do |t|
@@ -126,4 +128,5 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_13_024140) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "invoice_items", "invoices"
   add_foreign_key "invoice_items", "products"
+  add_foreign_key "invoices", "users"
 end

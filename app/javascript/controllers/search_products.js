@@ -56,12 +56,13 @@ export default class SearchProducts extends Controller {
         const productEl = event.currentTarget
         const productId = productEl.dataset.productId
         const productName = productEl.dataset.productName
+        const productStock = productEl.dataset.productStock
         const productPrice = parseFloat(productEl.dataset.productPrice)
 
         // Prevent duplicate selections
         if (!this.selectedProductsValue.includes(productId)) {
             this.selectedProductsValue = [...this.selectedProductsValue, productId]
-            this.renderSelectedProduct(productId, productName, productPrice)
+            this.renderSelectedProduct(productId, productName, productPrice, productStock)
         }
 
         // Clear search input and results
@@ -69,44 +70,45 @@ export default class SearchProducts extends Controller {
         this.clearResults()
     }
 
-    renderSelectedProduct(id, name, price) {
+    renderSelectedProduct(id, name, price, stock) {
         const selectedContainer = document.getElementById('selected-products')
-        // Validate inputs
         if (!selectedContainer) {
             console.error('Selected products container not found')
             return
         }
-
         const productRow = document.createElement('div')
         productRow.classList.add(
             'flex', 'justify-between', 'items-center', 'p-2',
             'border-b', 'last:border-b-0', 'border-b-1', 'product-row'
         )
         productRow.innerHTML = `
-      <div class="flex-grow">
-        <span class="font-medium product-name">${name}</span>
-        <input 
-          type="number" 
-          name="invoice[products][${id}][quantity]" 
-          value="1" 
-          min="1" 
-          class="input input-xs input-bordered ml-2 w-20 product-quantity"
-          data-product-id="${id}"
-          data-action="change->search-products#updateTotalPrice"
-        >
-      </div>
-      <div class="flex items-center">
-        <span class="mr-2 product-price">$${price.toFixed(2)}</span>
-        <button 
-          type="button" 
-          class="btn btn-xs btn-circle btn-outline remove-product" 
-          data-action="click->search-products#removeProduct"
-          data-product-id="${id}"
-        >
-          ✕
-        </button>
-      </div>
-    `
+          <div class="flex-grow">
+            <span class="font-medium product-name">${name}</span>
+            <input 
+              type="number" 
+              name="invoice[items_attributes][${id}][units]" 
+              value="1" 
+              min="1" 
+              class="input input-bordered ml-2 w-20 product-quantity"
+              data-product-id="${id}"
+              data-action="change->search-products#updateTotalPrice"
+            >
+          </div>
+          <div class="flex items-center">
+            <span class="text-gray-500 text-sm"></span>
+            <span class="text-gray-500 text-sm">Stock: ${stock}</span>
+            <span class="mr-2 product-price">$${price.toFixed(2)}</span>
+            <button 
+              type="button"
+              class="btn btn-xs btn-circle btn-outline remove-product" 
+              data-action="click->search-products#removeProduct"
+              data-product-id="${id}"
+            >
+              ✕
+            </button>
+          </div>
+        `
+
         selectedContainer.appendChild(productRow)
         this.updateTotalPrice()
     }
@@ -128,7 +130,7 @@ export default class SearchProducts extends Controller {
         const totalPriceEl = document.getElementById('invoice-total-price')
         let total = 0
 
-        document.querySelectorAll('#selected-products > div').forEach(productRow => {
+        document.querySelectorAll('#selected-products > .product-row').forEach(productRow => {
             const priceEl = productRow.querySelector('.product-price')
             const quantityInput = productRow.querySelector('.product-quantity')
             if (!priceEl || !quantityInput) {
