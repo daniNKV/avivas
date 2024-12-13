@@ -64,6 +64,12 @@
               <% end %>
             </label>
           <% end %>
+          <p>
+            <strong>Color: </strong><%= @product.color.blank? ? "Not specified" : @product.color %>
+          </p>
+          <p>
+            <strong>Sizes available: </strong><%= @product.sizes_available.blank? ? "Not specified" : @product.sizes_available %>
+          </p>
           <ul class="flex flex-wrap gap-2">
             <strong>Categories: </strong>
             <% if @product.categories.count > 0 %>
@@ -127,14 +133,14 @@
     </div>
   </section>
 
-  <section id="product-variants">
-    <div tabindex="0" class="collapse collapse-open border-base-300 bg-base-100 border border-1 rounded-lg shadow-md">
-      <div class="collapse-title text-xl font-medium">
-        <i class="fas fa-tags"></i>
-        Variants
-      </div>
-      <div class="collapse-content">
-      </div>
-    </div>
-  </section>
+<!--  <section id="product-variants">-->
+<!--    <div tabindex="0" class="collapse collapse-open border-base-300 bg-base-100 border border-1 rounded-lg shadow-md">-->
+<!--      <div class="collapse-title text-xl font-medium">-->
+<!--        <i class="fas fa-tags"></i>-->
+<!--        Variants-->
+<!--      </div>-->
+<!--      <div class="collapse-content">-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </section>-->
 </section>

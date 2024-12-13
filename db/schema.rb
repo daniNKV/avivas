@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_10_055201) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_10_055132) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -67,23 +67,12 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_10_055201) do
     t.integer "product_collection_id", null: false
   end
 
-  create_table "product_variants", force: :cascade do |t|
-    t.string "name"
-    t.decimal "unit_price"
-    t.integer "stock_quantity"
-    t.string "color"
-    t.string "size"
-    t.string "material"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "product_id", null: false
-    t.index ["product_id"], name: "index_product_variants_on_product_id"
-  end
-
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.decimal "base_price", default: "0.0"
+    t.string "color"
+    t.string "sizes_available"
     t.integer "stock_quantity", default: 0
     t.boolean "published", default: true
     t.boolean "deleted", default: false
@@ -115,5 +104,4 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_10_055201) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "product_variants", "products"
 end

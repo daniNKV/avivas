@@ -133,6 +133,8 @@ class Admin::ProductsController < ApplicationController
         :base_price,
         :stock_quantity,
         :image,
+        :color,
+        :sizes_available,
         images: [],
         categories: [],
       )

@@ -24,6 +24,18 @@
   </div>
 
   <div class="form-control w-full">
+    <%= form.label :color, class: "label" %>
+
+    <%= form.text_field :color, class: "input input-bordered w-full", placeholder: "White" %>
+  </div>
+
+  <div class="form-control w-full">
+    <%= form.label :sizes_available, class: "label" %>
+
+    <%= form.text_field :sizes_available, class: "input input-bordered w-full", placeholder: "XS S M L"%>
+  </div>
+
+  <div class="form-control w-full">
     <%= form.label :base_price, class: "label" %>
 
     <%= form.number_field :base_price, step: 0.5, class: "input input-bordered w-full" %>
