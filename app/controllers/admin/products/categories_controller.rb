@@ -1,6 +1,7 @@
 class Admin::Products::CategoriesController < ApplicationController
   layout "admin"
   before_action :set_product_category, only: %i[ edit update destroy ]
+  before_action :require_login
 
   # GET /admin/products/categories or /admin/products/categories.json
   def index

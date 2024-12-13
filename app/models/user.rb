@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   include Clearance::User
   has_one_attached :avatar
+  has_many :invoices
   before_save :normalize_phone_number
 
   enum :role, [ :member, :employee, :manager, :admin ], suffix: true

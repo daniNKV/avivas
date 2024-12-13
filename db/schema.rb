@@ -53,6 +53,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_13_024140) do
     t.decimal "total_price"
     t.decimal "discount"
     t.datetime "transaction_date"
+    t.integer "status", default: 0, null: false
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
