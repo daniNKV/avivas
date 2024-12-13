@@ -12,5 +12,6 @@ pin "@stimulus-components/rails-nested-form", to: "@stimulus-components--rails-n
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin "theme-change" # @2.5.0
 pin "theme", to: "theme.js"
+pin "controllers/search_user", to: "controllers/search_user.js"
 
 

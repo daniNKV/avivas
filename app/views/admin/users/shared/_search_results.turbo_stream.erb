@@ -1,0 +1,21 @@
+<%= turbo_stream.update "user_results" do %>
+  <% if @users.any? %>
+    <ul class="menu bg-base-200 w-full rounded-box z-10">
+      <% @users.each do |user| %>
+        <li>
+          <a
+            data-action="click->search-user#selectUser"
+            data-user-id="<%= user.id %>"
+            data-user-name="<%= user.full_name %>"
+            class="flex justify-between"
+          >
+            <span><%= user.full_name %></span>
+            <span class="text-sm text-gray-500"><%= user.email %></span>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="p-2 text-center text-gray-500">No users found</div>
+  <% end %>
+<% end %>

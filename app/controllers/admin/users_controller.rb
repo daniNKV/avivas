@@ -99,11 +99,21 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def search
+    @users = User.by_name_or_email(params[:query])
+    @users = @users.where(status: :active).limit(5)
+    render(
+      partial: "admin/users/shared/search_results",
+      formats: [ :turbo_stream ]
+    )
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params.expect(:id))
     end
+  
 
     # Only allow a list of trusted parameters through.
     def user_params

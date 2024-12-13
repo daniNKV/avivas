@@ -1,15 +1,35 @@
 <%= form_with(model: [:admin, invoice], class: "contents") do |form| %>
-  <% if invoice.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
+  <div
+    data-controller="search-user"
+    class="form-control w-full mb-4"
+  >
+    <%= form.label :user_id, "Select User", class: "label" %>
 
-      <ul>
-        <% invoice.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <div class="relative">
+      <div class="w-full">
+        <%= text_field_tag :query,
+                           nil,
+                           placeholder: "Search users...",
+                           class: "input input-bordered w-full",
+                           data: {
+                             action: "input->search-user#search",
+                             search_user_target: "searchInput"
+                           }
+        %>
+      </div>
+
+      <div
+        id="user_results"
+        data-search-user-target="results"
+        class=" z-10 w-full mt-1 max-h-60 overflow-y-auto"
+      >
+      </div>
+
+      <%= form.hidden_field :user_id, id: "selected_user_id", data: { search_user_target: "selectedUserId" }
+      %>
     </div>
-  <% end %>
+  </div>
+
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <div class="form-control">
