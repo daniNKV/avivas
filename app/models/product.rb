@@ -21,6 +21,9 @@ class Product < ApplicationRecord
   scope :deleted_ones, ->(flag) { where(deleted: flag) }
   scope :deleted_count, -> { where(deleted_at: nil).count }
   scope :published_count, -> { where(published: true).count }
+  scope :published_products, -> { where(published: true) }
+  scope :by_category, ->(category) { where(category: category) }
+
   def published?
     self.published
   end

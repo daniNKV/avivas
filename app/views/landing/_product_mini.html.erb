@@ -1,0 +1,11 @@
+<div id="<%= dom_id product %>" class="card bg-base-neutral max-w-sm shadow border border-1 rounded-lg">
+  <figure class="card-figure mx-auto">
+    <%= image_tag product.product_image_url, class: "" %>
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title"><%= product.name %></h2>
+    <p><%= number_to_currency(product.base_price) %></p>
+    <%= link_to "Ver", show_product_path(product), class: "btn btn-outline w-full mt-4" %>
+  </div>
+
+</div>

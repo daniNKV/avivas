@@ -1,0 +1,38 @@
+<% content_for :title do %>
+  Avivas - Sport Clothing Store
+<% end %>
+<% content_for :header do %>
+  <%= render "shared/navbar" %>
+<% end %>
+<section class="hero bg-base-100 min-h-screen max-w-screen-lg">
+  <div class="hero-content flex-col lg:flex-row w-full -mt-[7.5rem]">
+    <div class="carousel carousel-vertical rounded-box">
+      <% if @product.images.present? %>
+        <% @product.images.each do |image| %>
+          <div class="carousel-item h-full">
+            <%= image_tag image, class: "max-w-sm" %>
+          </div>
+        <% end %>
+      <% else %>
+        <%= image_tag @product.product_image_url, class: "max-w-sm" %>
+    <% end %>
+    </div>
+    <div class="max-w-xl">
+      <h1 class="text-5xl font-bold"><%= @product.name %></h1>
+      <p class="py-6 prose">
+        <%= @product.description %>
+      </p>
+      <div class="flex flex-col gap-2">
+        <p><strong>Price: </strong><%= number_to_currency(@product.base_price) %></p>
+        <p><strong>Color:  </strong><%= @product.color %></p>
+        <p><strong>Units available: </strong><%= @product.stock_quantity %></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+
+</section>
+<%= render "shared/footer" %>
+

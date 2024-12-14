@@ -18,6 +18,11 @@
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <style>
+      html {
+          scroll-behavior: smooth;
+      }
+    </style>
   </head>
 
   <body class="flex flex-col mx-auto min-h-screen">
@@ -29,7 +34,7 @@
         <%= yield :main_content %>
       </main>
     <% else %>
-      <main class="container mx-auto mt-0 px-5 ">
+      <main class="mx-auto -mt-4 px-5 ">
         <%= yield %>
       </main>
     <% end %>
