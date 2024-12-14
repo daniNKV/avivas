@@ -14,7 +14,7 @@ class Admin::UsersController < ApplicationController
     @users = @users.by_role(params[:role]) if params[:role].present?
     @users = @users.by_status(params[:status]) if params[:status].present?
 
-    @total_users_last_month = User.where('created_at >= ?', 1.month.ago).count
+    @total_users_last_month = User.where("created_at >= ?", 1.month.ago).count
     @total_users_count = User.count
     @total_users_active = User.where(status: :active).count
     @filtered_users_count = @users.count

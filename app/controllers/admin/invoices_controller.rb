@@ -40,7 +40,7 @@ class Admin::InvoicesController < ApplicationController
 
     if @invoice.save
       flash[:notice] = "Successfully created invoice."
-      redirect_to [:admin, @invoice]
+      redirect_to [ :admin, @invoice ]
     else
       flash[:notice] = "Unable to save invoice."
       render :new, status: :unprocessable_entity

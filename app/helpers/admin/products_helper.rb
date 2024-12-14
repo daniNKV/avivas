@@ -6,6 +6,4 @@ module Admin::ProductsHelper
   def humanize_published(value)
     value ? "Published" : "Hidden"
   end
-
-
 end

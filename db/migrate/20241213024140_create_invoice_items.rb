@@ -6,7 +6,6 @@ class CreateInvoiceItems < ActiveRecord::Migration[8.0]
       t.decimal :price
       t.integer :units
       t.decimal :discount
-
     end
   end
 end
