@@ -1,2 +1,23 @@
-<div id="<%= dom_id invoice %>">
+<h2 class="card-title">Invoice #<%= @invoice.id %></h2>
+<div class="stats shadow">
+  <div class="stat">
+    <div class="stat-figure text-secondary">
+      <div class="avatar online">
+        <div class="w-16 rounded-full ring-primary ring-offset-red-100">
+          <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+        </div>
+      </div>
+    </div>
+    <div class="stat-title"><%= @invoice.user.full_name %></div>
+    <div class="stat-value"><%= @invoice.user.username %></div>
+  </div>
+</div>
+
+<div class="flex justify-between">
+  <div>
+    <p><strong>Transaction Date:</strong> <%= @invoice.transaction_date.strftime("%B %d, %Y") %></p>
+    <p><strong>Notes:</strong> <%= @invoice.notes %></p>
+    <p><strong>Total Price:</strong> <%= number_to_currency(@invoice.total_price) %></p>
+  </div>
+
 </div>

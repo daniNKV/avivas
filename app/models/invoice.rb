@@ -6,6 +6,9 @@ class Invoice < ApplicationRecord
 
   enum :status, [ :active, :canceled ], suffix: true
 
+  validates :user, presence: true
+  validates :products, presence: true
+
   def canceled?
     status == :canceled
   end

@@ -1,4 +1,4 @@
-<% content_for :title, "Showing User" %>
+<% content_for :title, "Showing Invoice" %>
 
 <section class="flex flex-col gap-4 mx-auto">
   <header class="flex justify-between">
@@ -18,7 +18,9 @@
       </summary>
       <div class="collapse-content">
         <div class="flex flex-wrap gap-2 justify-evenly">
-
+          <%= button_to [:admin, @invoice], method: :delete, class: "btn btn-outline btn-lg lg:btn-wide" do %>
+            <i class="fas fa-trash-alt"></i> Cancel
+          <% end %>
         </div>
       </div>
     </details>
@@ -35,5 +37,31 @@
       </div>
     </div>
 
+  </section>
+
+  <section class="card w-full max-w-2xl shadow-lg bg-base-100">
+    <div class="card-body">
+      <h3 class="card-title">Products</h3>
+      <table class="table table-zebra w-full">
+        <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @invoice.items.each do |item| %>
+          <tr>
+            <td><%= item.product.name %></td>
+            <td><%= item.quantity %></td>
+            <td><%= number_to_currency(item.price) %></td>
+            <td><%= number_to_currency(item.quantity * item.price) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
   </section>
 </section>
