@@ -1,0 +1,59 @@
+<section class="w-full mx-auto">
+  <% content_for :title, "Invoices" %>
+
+  <header class="flex justify-between">
+    <h1 class="font-bold text-4xl">
+      <i class="fas fa-file-invoice px-2"></i>
+      Invoices
+    </h1>
+    <%= link_to new_admin_invoice_path, class: "btn btn-outline rounded-lg py-3 px-5" do %>
+      <i class="fas fa-plus"></i> Record a sale
+    <% end %>
+  </header>
+
+  <article id="users-stats" class="flex justify-between items-center max-w-screen-2xl py-4 ">
+    <div class="stats stats-vertical sm:stats-horizontal mx-auto shadow w-full">
+      <div class="stat place-items-center">
+        <div class="stat-title">Downloads</div>
+        <div class="stat-value">31K</div>
+        <div class="stat-desc">Jan 1st - Feb 1st</div>
+      </div>
+
+      <div class="stat place-items-center">
+        <div class="stat-title">New Users</div>
+        <div class="stat-value">4,200</div>
+        <div class="stat-desc">↗︎ 400 (22%)</div>
+      </div>
+
+      <div class="stat place-items-center">
+        <div class="stat-title">New Registers</div>
+        <div class="stat-value">1,200</div>
+        <div class="stat-desc">↘︎ 90 (14%)</div>
+      </div>
+    </div>
+  </article>
+
+  <article id="invoices" class="max-w-screen-xl mx-auto mt-4">
+    <%= form_tag admin_invoices_path, method: :get, class: "flex flex-col md:flex-row gap-3 items-center justify-center py-2" do %>
+      <%= text_field_tag :query,
+                         params[:query],
+                         placeholder: "Search invoices...",
+                         class: "input input-bordered w-full" %>
+
+      <%= submit_tag "Search",
+                     class: "btn btn-outline w-full md:btn-wide" %>
+
+      <%= link_to "Reset",
+                  admin_invoices_path,
+                  class: "btn btn-ghost join-item" %>
+    <% end %>
+
+    <div class="overflow-x-auto flex flex-col justify-center items-center pt-4">
+
+      <%== pagy_nav(@pagy) %>
+      <%= render "invoices_table", locals: { invoices: @invoices } %>
+      <%== pagy_nav(@pagy) %>
+
+    </div>
+  </article>
+</section>

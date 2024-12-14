@@ -27,7 +27,7 @@ puts "Creating users..."
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     role: Faker::Number.between(from: 0, to: 2),
-    status: Faker::Number.between(from: 0, to: 1),
+    status: 0,
     joined_at: Faker::Date.backward(days: 365 * 5)
   )
 end
@@ -81,7 +81,7 @@ Product.delete_all
     description: Faker::Lorem.paragraph(sentence_count: 3),
     base_price: Faker::Commerce.price(range: 10.0..100.0).round(2),
     stock_quantity: Faker::Number.between(from: 1, to: 100),
-    published: [true, false].sample,
+    published: [ true, false ].sample,
     deleted: false,
     deleted_at: nil
   )

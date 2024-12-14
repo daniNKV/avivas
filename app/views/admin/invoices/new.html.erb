@@ -1,0 +1,18 @@
+<% content_for :title, "Recording Invoice" %>
+
+<section class="w-full">
+  <header class="flex justify-between">
+    <h1 class="font-bold text-4xl">
+      <i class="fa-solid fa-plus pr-2"></i>
+      New Invoice
+    </h1>
+    <%= link_to admin_invoices_path, class: "btn btn-ghost" do %>
+      <i class="fas fa-arrow-left"></i> Back to invoices
+    <% end %>
+  </header>
+
+  <article class="mx-auto px-4 max-w-screen-lg">
+    <%= render "form", invoice: @invoice %>
+  </article>
+
+</section>

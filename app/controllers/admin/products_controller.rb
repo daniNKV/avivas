@@ -1,30 +1,42 @@
 class Admin::ProductsController < ApplicationController
+  include Pundit::Authorization
   layout "admin"
   before_action :set_admin_product, only: %i[ show edit update destroy update_stock publish hide add_images destroy_image ]
   before_action :require_login
+
   # GET /admin/products or /admin/products.json
   def index
     @products = Product.all
+    authorize Product
+    params[:deleted] = false unless params[:deleted].present?
     @products= @products.by_name_or_description(params[:query]) if params[:query].present?
+    @products = @products.deleted_ones(params[:deleted])
 
+    @total_products_count = Product.all.count
+    @total_products_published = Product.published_count
+    @total_products_deleted = Product.deleted_count
     @pagy, @products = pagy(@products)
   end
 
   # GET /admin/products/1 or /admin/products/1.json
   def show
+    authorize @product
   end
 
   # GET /admin/products/new
   def new
     @product = Product.new
+    authorize @product
   end
 
   # GET /admin/products/1/edit
   def edit
+    authorize @product
   end
 
   # POST /admin/products or /admin/products.json
   def create
+    authorize Product
     category_ids = params.dig(:product, :categories)&.reject(&:blank?)
     product_params = admin_product_params.except(:categories)
     @product = Product.new(product_params)
@@ -42,6 +54,7 @@ class Admin::ProductsController < ApplicationController
 
   # PATCH/PUT /admin/products/1 or /admin/products/1.json
   def update
+    authorize @product
     category_ids = params.dig(:product, :categories)&.reject(&:blank?)
     product_params = admin_product_params.except(:categories)
 
@@ -60,15 +73,17 @@ class Admin::ProductsController < ApplicationController
 
   # DELETE /admin/products/1 or /admin/products/1.json
   def destroy
-    @product.destroy!
+    authorize @product
+    @product.delete
 
     respond_to do |format|
-      format.html { redirect_to admin_products_path, status: :see_other, notice: "Product was successfully destroyed." }
+      format.html { redirect_to admin_products_path, status: :see_other, notice: "Product was successfully deleted." }
       format.json { head :no_content }
     end
   end
 
   def update_stock
+    authorize @product
     if @product.update(stock_quantity: params[:stock_quantity])
       render :show
     else
@@ -78,6 +93,7 @@ class Admin::ProductsController < ApplicationController
   end
 
   def add_images
+    authorize @product
     if params[:images].present?
       params[:images].each do |image|
         @product.attachment.attach(image)
@@ -91,6 +107,7 @@ class Admin::ProductsController < ApplicationController
   end
 
   def destroy_image
+    authorize @product
     image = @product.images.find(params[:image_id])
     if image.purge
       flash[:notice] = "Image deleted successfully"
@@ -102,6 +119,7 @@ class Admin::ProductsController < ApplicationController
   end
 
   def publish
+    authorize @product
     if @product.update(published: true)
       flash[:notice] = "Product published successfully"
       redirect_to admin_product_path @product
@@ -111,12 +129,24 @@ class Admin::ProductsController < ApplicationController
   end
 
   def hide
+    authorize @product
     if @product.update(published: false)
       flash[:notice] = "Product hidden successfully"
       redirect_to admin_product_path @product
     else
       render :show
     end
+  end
+
+  def search
+    authorize Product
+    @products = Product.by_name_or_description(params[:query])
+    @products = @products.where(deleted: false).limit(5)
+
+    render(
+      partial: "admin/products/shared/search_results",
+      formats: [ :turbo_stream ]
+    )
   end
 
   private

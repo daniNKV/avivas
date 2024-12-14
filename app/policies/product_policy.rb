@@ -17,6 +17,7 @@ class ProductPolicy < ApplicationPolicy
   def destroy_image?; index?; end
   def publish?; index?; end
   def hide?; index?; end
+  def search?; index?; end
 
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!

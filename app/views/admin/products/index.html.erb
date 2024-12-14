@@ -12,24 +12,35 @@
   </header>
 
   <article id="users-stats" class="flex justify-between items-center max-w-screen-2xl py-4 ">
-    <div class="stats stats-vertical sm:stats-horizontal mx-auto shadow w-full">
-      <div class="stat place-items-center">
-        <div class="stat-title">Downloads</div>
-        <div class="stat-value">31K</div>
-        <div class="stat-desc">Jan 1st - Feb 1st</div>
-      </div>
+    <div class="stat place-items-center">
+      <div class="stat-title">Total Products</div>
+      <%= render 'shared/animated_number',
+                 message: @total_products_count,
+                 start_value: 0,
+                 end_value: @total_products_count,
+                 classes: "stat-value" %>
+      <div class="stat-desc"></div>
+    </div>
 
-      <div class="stat place-items-center">
-        <div class="stat-title">New Users</div>
-        <div class="stat-value">4,200</div>
-        <div class="stat-desc">↗︎ 400 (22%)</div>
-      </div>
+    <div class="stat place-items-center">
+      <div class="stat-title">Published Products</div>
+      <%= render 'shared/animated_number',
+                 message: @total_products_published,
+                 start_value: 0,
+                 end_value: @total_products_published,
+                 classes: "stat-value" %>
+      <div class="stat-value"></div>
+      <div class="stat-desc"></div>
+    </div>
 
-      <div class="stat place-items-center">
-        <div class="stat-title">New Registers</div>
-        <div class="stat-value">1,200</div>
-        <div class="stat-desc">↘︎ 90 (14%)</div>
-      </div>
+    <div class="stat place-items-center">
+      <div class="stat-title">Deleted Products</div>
+      <%= render 'shared/animated_number',
+                 message: @total_products_deleted,
+                 start_value: 0,
+                 end_value: @total_products_deleted,
+                 classes: "stat-value" %>
+      <div class="stat-desc"></div>
     </div>
   </article>
 
@@ -39,6 +50,9 @@
                          params[:query],
                          placeholder: "Search products...",
                          class: "input input-bordered w-full" %>
+      <%= select_tag :deleted, options_for_select([["Active", false], ["Deleted", true]]),
+                     class: 'select select-bordered  max-w-xs' %>
+
 
       <%= submit_tag "Search",
                      class: "btn btn-outline w-full md:btn-wide" %>

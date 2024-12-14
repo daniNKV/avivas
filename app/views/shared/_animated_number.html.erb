@@ -1,0 +1,17 @@
+<%
+  # Default values
+  start_value ||= 0
+  end_value ||= 100
+  message ||= "Default animated number message."
+  classes ||= ""
+%>
+<div
+  class="<%= classes %>"
+  data-controller="animated-number"
+  data-animated-number-lazy-value=""
+  data-animated-number-start-value="<%= start_value %>"
+  data-animated-number-end-value="<%= end_value %>"
+  data-animated-number-duration-value="1000"
+>
+  <%= message %>
+</div>

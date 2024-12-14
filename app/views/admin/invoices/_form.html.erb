@@ -1,0 +1,94 @@
+<%= form_with(model: [:admin, invoice], class: "contents max-w-screen-lg") do |form| %>
+  <div
+    data-controller="search-user"
+    class="form-control w-full"
+  >
+    <%= form.label :user_id, "Select user involved", class: "label" %>
+
+    <div class="relative">
+      <div class="w-full">
+        <%= text_field_tag :query,
+                           nil,
+                           placeholder: "Search users...",
+                           class: "input input-bordered w-full",
+                           data: {
+                             action: "input->search-user#search",
+                             search_user_target: "searchInput"
+                           }
+        %>
+      </div>
+      <div
+        id="user_results"
+        data-search-user-target="results"
+        class=" z-10 w-full mt-1 max-h-60 overflow-y-auto"
+      >
+      </div>
+      <div id="selected_user_display" class="mt-2">
+        <strong>Selected User:</strong>
+        <span data-search-user-target="selectedUserDisplay"></span>
+      </div>
+
+      <%= form.hidden_field :user_id, id: "selected_user_id", data: { search_user_target: "selectedUserId" }%>
+    </div>
+  </div>
+  <div class="form-control">
+    <%= form.label :transaction_date, class: "label" %>
+    <%= form.datetime_local_field :transaction_date, value: @invoice.transaction_date, class: "input input-bordered" %>
+  </div>
+  <div class="form-control col-span-2">
+    <%= form.label :notes, class: "label" %>
+    <%= form.text_area :notes, rows: 5, class: "input input-bordered" %>
+  </div>
+  <div
+    data-controller="search-products"
+    class="form-control w-full mb-4"
+  >
+    <%= label_tag :search_products, "Add Products", class: "label" %>
+
+    <div class="relative">
+      <%= text_field_tag :search_products,
+                         nil,
+                         placeholder: "Search products...",
+                         class: "input input-bordered w-full",
+                         data: {
+                           action: "input->search-products#search",
+                           search_products_target: "searchInput"
+                         }
+      %>
+
+      <div
+        id="product_results"
+        data-search-products-target="results"
+        class="z-10 w-full mt-1 max-h-60 overflow-y-auto"
+      >
+        <!-- Dynamic product search results -->
+      </div>
+    </div>
+
+    <div
+      id="selected-products"
+      class="py-4"
+    >
+      <!-- Dynamically added selected products will appear here -->
+    </div>
+
+
+    <div class="flex justify-between mt-4">
+      <span class="font-bold">Total:</span>
+      <span class="font-bold text-lg">
+        <%= form.number_field :total_price,
+                              class: "input input-bordered w-full",
+                              id: 'invoice-total-price',
+                              value: 0,
+                              step: "0.01",
+                              min: "0",
+                              precision: 2
+        %>
+      </span>
+    </div>
+  </div>
+
+  <div class="flex justify-end mt-4">
+    <%= form.submit "Save Invoice", class: "btn btn-outline btn-wide rounded-lg w-full" %>
+  </div>
+<% end %>

@@ -1,12 +1,17 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root "landing#index"
+  post "/" => "landing#index", as: "landing"
+  get "/show/:id" => "landing#show", as: :show_product
 
   namespace :admin do
     root to: "dashboard#index"
     get "profiles/edit"
     patch "profiles/update"
     get "profiles/:username", to: "profiles#show", as: "public_profile"
+    get "users/search", to: "users#search"
+    get "products/search", to: "products#search"
+    resources :invoices, except: [ :edit, :update ]
     resources :users do
       member do
         post :block

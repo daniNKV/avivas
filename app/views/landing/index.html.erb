@@ -6,13 +6,66 @@
   <%= render "shared/navbar" %>
 <% end %>
 
-<section class="mx-auto mt-20">
-  <h1 class="font-bold text-[4rem]">
-    Ropa simple, vida compleja
-    <span>
-      <svg class="w-full max-w-44 h-auto" width="1994" height="253" viewBox="0 0 1994 253" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M38 215C369.5 38 889 38 889 38C889 38 1608.5 38 1956.5 215" stroke="#FFCE00" stroke-width="75" stroke-linecap="round"/>
-      </svg>
-    </span>
-  </h1>
+<section class="hero bg-base-100 mt-4 min-h-screen md:-mt-[7rem]">
+  <div class="hero-content">
+    <div class="max-w-screen-xl mx-auto text-center">
+      <h1 class="font-bold text-[4rem] mx-auto">
+        Ropa simple, vida compleja
+        <span>
+          <svg class="w-full max-w-44 h-auto" width="1994" height="253" viewBox="0 0 1994 253" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M38 215C369.5 38 889 38 889 38C889 38 1608.5 38 1956.5 215" stroke="#FFCE00" stroke-width="75" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </h1>
+      <p class="prose mx-auto text-xl py-4 leading-10	">
+        Choosing simplicity is not giving up, it's prioritizing what is essential.
+      <br>
+        Dress in the basics. Live with intention.
+      </p>
+
+      <a href="#products" class="btn btn-primary mt-5">
+        <i class="fas fa-arrow-down"></i>
+        Conocenos
+      </a>
+    </div>
+  </div>
 </section>
+
+<section id="products-list" class="flex flex-col items-center justify-center">
+  <h2 class="font-bold text-[4rem] mx-auto">
+    Our Products
+  </h2>
+  <%= form_tag landing_path, method: :get, class: "flex flex-col md:flex-row gap-3 items-center justify-center py-4" do %>
+    <%= text_field_tag :query,
+                       params[:query],
+                       placeholder: "Search products...",
+                       class: "input input-bordered w-full" %>
+
+
+    <%= submit_tag "Search",
+                   class: "btn btn-outline w-full lg:btn-wide" %>
+
+    <%= link_to "Reset",
+                landing_path,
+                class: "btn btn-ghost join-item" %>
+  <% end %>
+
+  <div class="hero-content text-center">
+    <div id="products" class="w-full flex flex-wrap gap-4 items-center justify-center">
+      <%= render partial: "product_mini", collection: @products, as: :product %>
+    </div>
+  </div>
+  <% if @products.blank? %>
+    <p>We didn't find any products. We are sorry :(</p>
+  <% else %>
+    <%== pagy_nav(@pagy) %>
+    <a href="#products-list" class="btn btn-wide btn-ghost">
+      Go back
+      <i class="fas fa-arrow-up"></i>
+    </a>
+  <% end %>
+
+
+</section>
+
+<%= render "shared/footer" %>
