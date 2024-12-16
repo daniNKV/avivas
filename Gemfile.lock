@@ -216,7 +216,7 @@ GEM
     parser (3.3.6.0)
       ast (~> 2.4.1)
       racc
-    phonelib (0.10.1)
+    phonelib (0.10.2)
     propshaft (1.1.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
@@ -415,7 +415,7 @@ DEPENDENCIES
   jbuilder
   kamal
   pagy (~> 9.3)
-  phonelib (~> 0.10.1)
+  phonelib (~> 0.10.2)
   propshaft
   puma (>= 5.0)
   pundit (~> 2.4)
