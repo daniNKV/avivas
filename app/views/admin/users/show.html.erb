@@ -47,7 +47,9 @@
         <%= @user.status.capitalize %>
       </span>
       <figure class="max-w-[300px]">
-        <%= image_tag current_user.avatar_url, alt: "#{current_user.username}'s avatar", class: "user-avatar " %>
+        <%= image_tag avatar_url(@user), 
+          alt: "#{current_user&.username}'s avatar", 
+          class: "user-avatar" %>
       </figure>
       <div class="card-body">
         <%= render @user %>

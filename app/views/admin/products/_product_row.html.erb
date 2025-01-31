@@ -3,7 +3,7 @@
     <div class="flex items-center gap-3">
       <div class="avatar">
         <div class="mask mask-squircle h-12 w-12">
-          <img src="<%= product.product_image_url %>" alt="Product Image" />
+          <%= image_tag product_image_url(product) %>
           <div class="bg-gray-100 mask mask-squircle h-12 w-12"></div>
         </div>
       </div>
