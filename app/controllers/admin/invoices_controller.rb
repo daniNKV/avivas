@@ -1,7 +1,7 @@
 class Admin::InvoicesController < ApplicationController
   include Pundit::Authorization
   layout "admin"
-  before_action :set_invoice, only: %i[ show destroy ]
+  before_action :set_invoice, only: %i[ show cancel ]
   before_action :require_login
 
   # GET /admin/invoices or /admin/invoices.json
@@ -60,6 +60,7 @@ class Admin::InvoicesController < ApplicationController
         end
   
         success = true
+        
       else
         flash[:alert] = "Unable to save invoice: #{@invoice.errors.full_messages.join(', ')}"
         raise ActiveRecord::Rollback
@@ -73,13 +74,17 @@ class Admin::InvoicesController < ApplicationController
     end
   end
 
-  # DELETE /admin/invoices/1 or /admin/invoices/1.json
-  def destroy
-    authorize @invoice
 
-    respond_to do |format|
-      format.html { redirect_to admin_invoices_path, status: :see_other, notice: "Invoice was successfully destroyed." }
-      format.json { head :no_content }
+  # PATCH /admin/invoices/:id/cancel
+  def cancel
+    authorize @invoice
+    Rails.logger.debug "Canceling invoice #{@invoice.id}..."
+  
+    if @invoice.cancel!
+      redirect_to [:admin, @invoice], notice: "Invoice was successfully canceled."
+    else
+      Rails.logger.error "Failed to cancel invoice: #{@invoice.errors.full_messages.join(', ')}"
+      redirect_to [:admin, @invoice], alert: "Unable to cancel the invoice: #{@invoice.errors.full_messages.join(', ')}"
     end
   end
 
