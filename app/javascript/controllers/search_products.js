@@ -76,39 +76,50 @@ export default class SearchProducts extends Controller {
             console.error('Selected products container not found')
             return
         }
+    
         const productRow = document.createElement('div')
         productRow.classList.add(
             'flex', 'justify-between', 'items-center', 'p-2',
             'border-b', 'last:border-b-0', 'border-b-1', 'product-row'
         )
+    
+        // Add hidden input for product_id and units
         productRow.innerHTML = `
-          <div class="flex-grow">
+        <div class="flex-grow">
             <span class="font-medium product-name">${name}</span>
             <input 
-              type="number" 
-              name="invoice[items_attributes][${id}][units]" 
-              value="1" 
-              min="1" 
-              class="input input-bordered ml-2 w-20 product-quantity"
-              data-product-id="${id}"
-              data-action="change->search-products#updateTotalPrice"
+                type="number" 
+                name="invoice[items_attributes][${id}][units]" 
+                value="1" 
+                min="1" 
+                class="input input-bordered ml-2 w-20 product-quantity"
+                data-product-id="${id}"
+                data-action="change->search-products#updateTotalPrice"
             >
-          </div>
-          <div class="flex items-center">
-            <span class="text-gray-500 text-sm"></span>
+            <input 
+                type="hidden" 
+                name="invoice[items_attributes][${id}][product_id]" 
+                value="${id}"
+            >
+            <input 
+                type="hidden" 
+                name="invoice[items_attributes][${id}][price]" 
+                value="${price}"
+            >
+        </div>
+        <div class="flex items-center">
             <span class="text-gray-500 text-sm">Stock: ${stock}</span>
             <span class="mr-2 product-price">$${price.toFixed(2)}</span>
             <button 
-              type="button"
-              class="btn btn-xs btn-circle btn-outline remove-product" 
-              data-action="click->search-products#removeProduct"
-              data-product-id="${id}"
+                type="button"
+                class="btn btn-xs btn-circle btn-outline remove-product" 
+                data-action="click->search-products#removeProduct"
+                data-product-id="${id}"
             >
-              ✕
+                ✕
             </button>
-          </div>
-        `
-
+        </div>
+    `
         selectedContainer.appendChild(productRow)
         this.updateTotalPrice()
     }

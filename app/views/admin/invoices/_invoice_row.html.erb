@@ -17,12 +17,7 @@
     <%= invoice.total_price %>
   </td>
   <td>
-    <span class="badge badge-secondary p-4 rounded-lg badge-sm">
-      <%= invoice.status %>
-    </span>
-  </td>
-  <td>
-    <%= invoice.transaction_date %>
+    <%= time_ago_in_words(invoice.transaction_date) %>
   </td>
   <td>
     <%= link_to "details", admin_invoice_path(invoice), class: "btn btn-ghost btn-md text-xs" %>

@@ -7,6 +7,6 @@ class Invoice::Item < ApplicationRecord
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
   def total_price
-    product.price * quantity
+    product.price * units
   end
 end

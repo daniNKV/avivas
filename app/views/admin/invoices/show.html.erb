@@ -28,9 +28,6 @@
 
   <section id="user-information" class="flex justify-center mt-4">
     <div class="card indicator md:card-side bg-base-100 shadow-xl">
-      <span class="indicator-item indicator-top indicator-center badge badge-lg badge-primary p-6 text-xl font-bold rounded-lg">
-        <%= @invoice.status.capitalize %>
-      </span>
 
       <div class="card-body">
         <%= render @invoice %>
@@ -55,9 +52,9 @@
         <% @invoice.items.each do |item| %>
           <tr>
             <td><%= item.product.name %></td>
-            <td><%= item.quantity %></td>
+            <td><%= item.units %></td>
             <td><%= number_to_currency(item.price) %></td>
-            <td><%= number_to_currency(item.quantity * item.price) %></td>
+            <td><%= number_to_currency(item.units * item.price) %></td>
           </tr>
         <% end %>
         </tbody>
