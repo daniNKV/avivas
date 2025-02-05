@@ -84,13 +84,7 @@ class User < ApplicationRecord
   def blocked?; blocked_status?; end
   def active?; active_status?; end
   def inactive?; inactive_status?; end
-  def avatar_url
-    if avatar.attached?
-      Rails.application.routes.url_helpers.rails_blob_path(avatar, only_path: true)
-    else
-      "/images/default_avatar.webp"
-    end
-  end
+
 
   private
   def normalize_phone_number

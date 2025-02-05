@@ -6,6 +6,15 @@ class InvoicePolicy < ProductPolicy
   # https://gist.github.com/Burgestrand/4b4bc22f31c8a95c425fc0e30d7ef1f5
 
 
+  def index?; user.admin? || user.manager? || user.employee?; end
+
+  def show?; user.admin? || user.manager? || user.employee?; end
+
+  def create?; user.admin? || user.manager? || user.employee?; end
+
+  def cancel?; user.admin? || user.manager? || user.employee?; end
+
+
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!
     # def resolve

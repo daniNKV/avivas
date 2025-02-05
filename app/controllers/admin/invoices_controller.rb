@@ -1,7 +1,7 @@
 class Admin::InvoicesController < ApplicationController
   include Pundit::Authorization
   layout "admin"
-  before_action :set_invoice, only: %i[ show destroy ]
+  before_action :set_invoice, only: %i[ show cancel ]
   before_action :require_login
 
   # GET /admin/invoices or /admin/invoices.json
@@ -30,31 +30,61 @@ class Admin::InvoicesController < ApplicationController
     @invoice.items.build
   end
 
-  # POST /admin/invoices or /admin/invoices.json
   def create
     authorize Invoice
-    @user = User.find(params[:user_id]) if params[:user_id].present?
-    puts params[:user_id]
     @invoice = Invoice.new(invoice_params)
-    @invoice.user = params[:invoice][:user].to_i if params[:invoice][:user].present?
-
-    if @invoice.save
-      flash[:notice] = "Successfully created invoice."
-      redirect_to [ :admin, @invoice ]
+    Rails.logger.debug("Invoice params: #{invoice_params.inspect}")
+    success = false
+  
+    ActiveRecord::Base.transaction do
+      if @invoice.save
+        insufficient_stock = []
+  
+        @invoice.items.each do |item|
+          product = item.product
+          product.reload(lock: true) 
+  
+          if product.stock_quantity < item.units
+            insufficient_stock << product.name
+          end
+        end
+  
+        if insufficient_stock.any?
+          flash[:alert] = "Insufficient stock for: #{insufficient_stock.join(', ')}"
+          raise ActiveRecord::Rollback
+        end
+  
+        @invoice.items.each do |item|
+          product = item.product
+          product.update!(stock_quantity: product.stock_quantity - item.units)
+        end
+  
+        success = true
+        
+      else
+        flash[:alert] = "Unable to save invoice: #{@invoice.errors.full_messages.join(', ')}"
+        raise ActiveRecord::Rollback
+      end
+    end
+  
+    if success
+      redirect_to [:admin, @invoice], notice: "Invoice was successfully created."
     else
-      flash[:notice] = "Unable to save invoice."
       render :new, status: :unprocessable_entity
     end
   end
 
-  # DELETE /admin/invoices/1 or /admin/invoices/1.json
-  def destroy
-    authorize @invoice
-    @invoice.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to admin_invoices_path, status: :see_other, notice: "Invoice was successfully destroyed." }
-      format.json { head :no_content }
+  # PATCH /admin/invoices/:id/cancel
+  def cancel
+    authorize @invoice
+    Rails.logger.debug "Canceling invoice #{@invoice.id}..."
+  
+    if @invoice.cancel!
+      redirect_to [:admin, @invoice], notice: "Invoice was successfully canceled."
+    else
+      Rails.logger.error "Failed to cancel invoice: #{@invoice.errors.full_messages.join(', ')}"
+      redirect_to [:admin, @invoice], alert: "Unable to cancel the invoice: #{@invoice.errors.full_messages.join(', ')}"
     end
   end
 
@@ -68,10 +98,8 @@ class Admin::InvoicesController < ApplicationController
         :transaction_date,
         :notes,
         :total_price,
-        :user,
         :user_id,
-        items_attributes: [ :product_id, :units, :_destroy ],
-        products: {}
+        items_attributes: [:product_id, :units, :price, :_destroy]
       )
     end
 end

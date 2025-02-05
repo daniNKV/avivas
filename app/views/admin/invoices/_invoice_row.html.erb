@@ -3,7 +3,7 @@
     <div class="flex items-center gap-3">
       <div class="avatar">
         <div class="mask mask-squircle h-12 w-12">
-          <%= image_tag invoice.user.avatar_url, alt: "#{invoice.user.username}'s avatar", class: "user-avatar" %>
+          <%= image_tag avatar_url(invoice.user), alt: "#{invoice.user.username}'s avatar", class: "user-avatar" %>
         </div>
       </div>
       <div>
@@ -17,12 +17,7 @@
     <%= invoice.total_price %>
   </td>
   <td>
-    <span class="badge badge-secondary p-4 rounded-lg badge-sm">
-      <%= invoice.status %>
-    </span>
-  </td>
-  <td>
-    <%= invoice.transaction_date %>
+    <%= time_ago_in_words(invoice.transaction_date) %>
   </td>
   <td>
     <%= link_to "details", admin_invoice_path(invoice), class: "btn btn-ghost btn-md text-xs" %>

@@ -11,7 +11,11 @@ Rails.application.routes.draw do
     get "profiles/:username", to: "profiles#show", as: "public_profile"
     get "users/search", to: "users#search"
     get "products/search", to: "products#search"
-    resources :invoices, except: [ :edit, :update ]
+    resources :invoices, except: [ :edit, :update ] do
+      member do
+        patch :cancel
+      end
+    end
     resources :users do
       member do
         post :block

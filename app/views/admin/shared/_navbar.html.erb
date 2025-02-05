@@ -12,7 +12,9 @@
     <div class="dropdown dropdown-end">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
-          <%= image_tag current_user.avatar_url, alt: "#{current_user.username}'s avatar", class: "user-avatar" %>
+          <%= image_tag avatar_url(current_user), 
+            alt: "#{current_user&.username}'s avatar", 
+            class: "user-avatar" %>        
         </div>
       </div>
       <ul

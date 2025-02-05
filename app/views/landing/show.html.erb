@@ -14,7 +14,7 @@
           </div>
         <% end %>
       <% else %>
-        <%= image_tag @product.product_image_url, class: "max-w-sm" %>
+        <%= image_tag product_image_url(@product), class: "max-w-sm" %>
     <% end %>
     </div>
     <div class="max-w-xl">
