@@ -71,7 +71,7 @@ gem "bcrypt", "~> 3.1"
 gem "clearance", "~> 2.9"
 
 # Helpers for standardize phone numbers management
-gem "phonelib", "~> 0.10.1"
+gem "phonelib", "~> 0.10.4"
 
 # Add role authorization capabilities
 gem "pundit", "~> 2.4"
